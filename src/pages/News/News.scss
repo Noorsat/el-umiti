@@ -1,0 +1,20 @@
+.news{
+    padding: 41px 16px 0 16px;
+}
+.news__item{
+    border-radius: 8px;
+    padding: 8px;
+    height: 125px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.10);
+    margin-bottom: 16px;
+
+    &-wrapper{
+        display: flex;
+        gap: 16px;
+    }
+
+    &-title{
+        font-size: 16px;
+        color: #212528;
+    }
+}

@@ -1,0 +1,13 @@
+.tasks{
+    padding:39px 16px 0 16px;
+
+    &__progress{
+        margin-bottom: 24px;
+    }
+
+    &__categories{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}

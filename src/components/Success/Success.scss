@@ -1,0 +1,15 @@
+.success{
+    text-align: center;
+    width: 100%;
+   
+    &__image{
+        margin-bottom: 23px;
+    }
+
+    &__title{
+        font-size: 24px;
+        font-weight: 500;
+        color: #516C7C;
+        margin-bottom: 58px;
+    }
+}

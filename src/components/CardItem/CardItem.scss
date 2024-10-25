@@ -1,0 +1,35 @@
+.card{
+    background: linear-gradient(117deg, #0358FF 0%, #47D3FF 100%); 
+    border-radius: 8px;
+    padding: 23px;
+    position: relative;
+
+    &__wrapper{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    &__title{
+        color:#fff;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &__dot{
+        position: absolute;
+        top:8px;
+        right: 7px;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+
+        &.green{
+            background: #00D079;
+        }
+
+        &.red{
+            background: #FF0B0B;
+        }
+    }
+}

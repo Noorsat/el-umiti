@@ -1,0 +1,39 @@
+.messageSend{
+    display: flex;
+    align-items: center;
+    padding:0 20px;
+
+    &__upload{
+        min-width: 39px;
+        height: 39px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #282AFF;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+
+    &__send{
+        min-width: 39px;
+        height: 39px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #282AFF;
+        border-radius: 50%;
+        margin-left: 10px;
+    }
+    &__input{
+        width: 100%;
+    }
+    &__input input{
+        width: 100%;
+        background: #F9F9F9;
+        border-radius: 22.5px;
+        border:none;
+        outline: none;
+        padding:15px 10px;
+        box-sizing: border-box;
+    }
+}

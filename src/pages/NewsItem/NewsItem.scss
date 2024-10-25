@@ -1,0 +1,25 @@
+.newsItem{
+    padding: 32px 16px 0 16px;
+
+    &__img{
+        margin-bottom: 17px;
+    }
+
+    &__title{
+        color: #212528;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    &__date{
+        color: #acacac;
+        font-size: 12px; 
+        margin-bottom: 16px;   
+    }
+
+    &__text{
+        font-size: 16px;
+        color:#000;
+    }
+}

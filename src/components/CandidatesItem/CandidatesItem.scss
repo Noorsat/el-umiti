@@ -1,0 +1,39 @@
+.candidates__item{
+    background: #DCEDF9;
+    height: 72px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    padding-top: 15px;
+    padding-left: 14px;
+    position: relative;
+    display: block;
+    
+    &-name{
+        color: #0E1012;
+        font-weight: 500;
+        font-size: 20px;
+    }
+    &-dot{
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 10px;
+        right: 8.74px;
+    }
+    &-iin{
+        color: #0c1115;
+        opacity: 0.65;
+        font-size: 12px;   
+        margin-top: 5px;
+    }
+    .red{
+        background: #FF0B54;
+    }
+    .blue{
+        background: #0B68FF;
+    }
+    .grey{
+        background: #C1C1C1;
+    }
+}

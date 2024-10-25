@@ -1,0 +1,36 @@
+.candidate{
+    padding: 31px 16px 0 16px;
+
+    &__phone{
+        margin-top: 22px;
+        margin-bottom: 33px;
+    }
+    &__phone-title{
+        color:#A3ACB6;
+        font-size: 10px;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+    &__phone-text{
+        color:#000;
+        font-size: 16px;
+    }
+
+    &__items{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    &__progress{
+        margin-bottom: 24px;
+    }
+
+    &__cards{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 51px;
+    }
+}

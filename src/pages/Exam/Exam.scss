@@ -1,0 +1,87 @@
+.exam{
+    padding:21px 16px 0 16px;
+
+    &__card{
+        margin-bottom: 22px;
+    }
+
+    &__progress{
+        margin-bottom: 21px;
+    }
+
+    &__button{
+        margin-bottom: 24px;
+    }
+
+    &__tasks-title{
+        color: #a3acb6;
+        font-size: 10px;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+
+    &__tasks-item{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 0.86px solid #D5D5D6;
+        padding-bottom: 14.48px;
+        margin-bottom: 10px;
+
+        &:last-child{
+            border-bottom: none;
+        }
+
+        &-notpassed{
+            width: 28px;
+            height: 28px;
+            background: #0B68FF;
+            border-radius: 50%;
+        }
+
+        &-deadlinepassed{
+            width: 28px;
+            height: 28px;
+            background: #E5E8EB;
+            border-radius: 50%;
+        }
+
+        &-left{
+            display: flex;
+            align-items: center;
+            gap: 12.48px;
+        }
+
+        &-right{
+            display: flex;
+            align-items: center;
+            gap: 27px;
+        }
+
+        &-count{
+            color:#B5B5B5;
+            font-size: 14px;
+        }
+
+        &-title{ 
+            font-size: 14px;
+            color: #000;
+        }
+    }
+    
+}
+.exam__tasks-item-icon.current{
+    background:#0B68FF;
+    border-radius: 50%;
+    width: 27.52px;
+    height: 27.52px;
+}
+.exam__tasks-item-icon.future{
+    background:#E5E8EB;
+    border-radius: 50%;
+    width: 27.52px;
+    height: 27.52px;
+}
+.exam__tasks-item-title.future a{
+    color:#B5B5B5;
+}

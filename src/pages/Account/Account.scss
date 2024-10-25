@@ -1,0 +1,93 @@
+.account{
+    padding: 0 16px;
+   
+    &__header{
+        display: flex;
+        gap: 16px;
+        padding-top: 29px;
+        padding-bottom: 23px;
+        margin-bottom: 32px;
+        border-bottom: 0.86px solid #a3acb6;
+    }
+    &__avatar{
+        color: #404247;
+        font-size: 18px;
+        font-weight: 500;
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white; 
+        border-radius: 8px;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.10);
+    }
+    &__name{
+        font-size: 18px;
+        font-weight: 500;
+        color: #000;
+        margin-bottom: 8px;
+    }
+    &__info{
+        &-text{
+            color:#a3acb6;
+            font-size: 10px;
+            font-weight: 500;
+            margin-bottom: 7px;
+        }
+        &-text:last-child{
+            margin-bottom: 0;
+        }
+    }
+    &__notification{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 19px;
+        margin-bottom: 18px;
+        border-bottom: 0.86px solid #D5D5D6;
+
+        &-title{
+            font-size: 14px;
+            color: #000;
+        }
+
+        &-count{
+            color: #fff;
+            font-size: 14px;
+            width: 23px;
+            height: 23px;
+            background: #0b68ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+    }
+
+    &__item{
+        &-text{
+            color: #A3ACB6;
+            font-size: 10px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        &-title{
+            font-size: 14px;
+            color: #000;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &::after{
+                content: '';
+                display: block;
+                background: url('../../assets/images/arrow-right.svg');
+                width: 7px;
+                height: 14px;
+            }
+        }
+    }
+}
