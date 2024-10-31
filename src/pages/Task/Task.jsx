@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button';
 import { useParams } from 'react-router-dom';
 import { categories } from '../../utils/categories';
 import { useEffect, useState } from 'react';
-import { getTask } from '../../api/task.api';
+import { getTask, updateTask } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 import { Roles } from '../../enums/Roles';
 
@@ -17,10 +17,7 @@ const Task = ({ chatId, role }) => {
 
     const [task, setTask] = useState();
     const [loading, setLoading] = useState();
-
-    console.log(task)
-    console.log(role)
-
+    const [studentAnswer, setStudentAnswer] = useState(); 
 
     useEffect(() => {
         setLoading(true);
@@ -33,6 +30,12 @@ const Task = ({ chatId, role }) => {
             setLoading(false);
         })
     }, [])
+
+    const sendStudentAnswerHandler = () => {
+        updateTask(chatId, taskId, { 
+            student_answer: studentAnswer
+        })
+    }
 
     return (
         <div className='task'>
@@ -110,10 +113,10 @@ const Task = ({ chatId, role }) => {
                                 Эссе
                             </div>
                             <div className="task__answers-input-input">
-                                <textarea name="" id="" placeholder='Осы жерге жазыңыз'></textarea>
+                                <textarea name="" id="" placeholder='Осы жерге жазыңыз' value={studentAnswer} onChange={e => setStudentAnswer(e.target.value)}></textarea>
                             </div>
                         </div>
-                        <div className="task__answers-button">
+                        <div className="task__answers-button" onClick={sendStudentAnswerHandler}>
                             Жіберу
                         </div>
                     </div>
