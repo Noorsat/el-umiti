@@ -22,6 +22,7 @@ import NewsItem from './pages/NewsItem/NewsItem';
 import AdminLang from './pages/AdminLang/AdminLang';
 import Tasks from './pages/Tasks/Tasks';
 import { Roles } from './enums/Roles';
+import About from './pages/About/About';
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
           <Route path='main' element={<Main role={role} setIsLogin={setIsLogin} user={user} />} />
           <Route path='account' element={<Account id={id} chatId={chatId} />} />
           <Route path='candidates' element={<Candidates chatId={chatId} id={id}  />} />
+          <Route path='/about' element={<About /> } />
           <Route path='/tasks' element={<Tasks />} />
           <Route path='/candidate/:id' element={<Candidate chatId={chatId} setSelectedStudentId={setSelectedStudentId} />} />
           <Route path='/exam/:id' element={<Exam chatId={chatId} selectedStudentId={selectedStudentId || id} role={role} />} />

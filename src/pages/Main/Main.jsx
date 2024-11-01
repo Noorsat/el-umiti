@@ -23,7 +23,7 @@ const Main = ({ role, setIsLogin, user }) => {
                     “Ел үміті” медаліне<br></br> үміткерлер чат-боты
                 </div>
             </div>
-            <div className="main__about">
+            <Link className="main__about" to={`/about`}>
                 <div className="main__about-content">
                     <div className="main__about-icon">
                         <img src={InfoIcon} alt="info" />
@@ -32,7 +32,7 @@ const Main = ({ role, setIsLogin, user }) => {
                         Жоба жайлы
                     </div>
                 </div>
-            </div>
+            </Link>
             {
                 role == Roles.participant && (
                     <CandidatesItem
