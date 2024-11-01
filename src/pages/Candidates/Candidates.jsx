@@ -42,9 +42,9 @@ const Candidates = ({ chatId, id, setSelectedStudentId }) => {
                     ))
                 }
             </div>
-            <Button 
+            {/* <Button 
                 text="Тізімді жүктеп алу"
-            />
+            /> */}
         </div>
     )
 }

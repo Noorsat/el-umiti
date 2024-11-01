@@ -52,8 +52,6 @@ function App() {
     }
   }, [role])
 
-  console.log(user);
-
   return (
     <div className="App">
       {(isLogin && !hideHeaderPages.includes(page)) && <Header />} 

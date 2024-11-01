@@ -8,6 +8,7 @@ import { Roles } from '../../enums/Roles';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import MentorIcon from '../../assets/images/mentor.svg';
 import ParticipiantIcon from '../../assets/images/participant.svg';
+import { Link } from 'react-router-dom';
 
 const Main = ({ role, setIsLogin, user }) => {
 
@@ -51,22 +52,22 @@ const Main = ({ role, setIsLogin, user }) => {
                 )
             }
             <div className="main__items">
-                <div className="main__item">
+                <Link className="main__item" to={`/news`}>
                     <div className="main__item-icon">
                         <img src={NewsIcon} alt="news" />
                     </div>
                     <div className="main__item-title">
                         Жаңалықтар
                     </div>
-                </div>
-                <div className="main__item">
+                </Link>
+                <Link className="main__item" to={`/tech-help`}>
                     <div className="main__item-icon">
                         <img src={CallCenterIcon} alt="call-center-icon" />
                     </div>
                     <div className="main__item-title">
                         Тех. қолдау
                     </div>
-                </div>
+                </Link>
             </div>
             {
                 role == Roles.admin && (

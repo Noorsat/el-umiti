@@ -4,6 +4,8 @@ import BoxItem from '../../components/BoxItem/BoxItem';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import CardItem from '../../components/CardItem/CardItem';
 import PhoneIcon from '../../assets/images/phone.svg';
+import PdfIcon from '../../assets/images/pdf.svg';
+import TasksIcon from '../../assets/images/tasks.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUserById } from '../../api/account.api';
@@ -53,9 +55,11 @@ const Candidate = ({ chatId, setSelectedStudentId }) => {
                     />
                 </a>
                 <BoxItem 
+                    icon={PdfIcon}
                     title={'Разрешение PDF'}
                 />
                 <BoxItem 
+                    icon={TasksIcon}
                     title={'Тапсырмалар тізімі'}
                 />
             </div>

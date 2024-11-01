@@ -56,9 +56,9 @@ const Account = ({ id, chatId }) => {
                     <div className="account__notification-title">
                         Хабарламалар
                     </div>
-                    <div className="account__notification-count">
+                    {/* <div className="account__notification-count">
                         1
-                    </div>
+                    </div> */}
                 </div>
                 <div className="account__items">
                     {
