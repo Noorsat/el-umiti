@@ -17,7 +17,15 @@ const Header = () => {
             </div>
           )
         }
-        <div className="header__title" style={{ color: greyHeaders.includes(location.pathname.split("/")[1]) ? '#516C7C' : '#0368ff', textTransform: greyHeaders.includes(location.pathname.split("/")[1]) ? 'none' : 'uppercase', fontWeight: greyHeaders.includes(location.pathname.split("/")[1]) ? '400' : '600', fontSize:  greyHeaders.includes(location.pathname.split("/")[1]) ? '16px' : '14px'}}>
+        <div 
+          className="header__title" 
+          style={{ 
+            color: greyHeaders.includes(location.pathname.split("/")[1]) ? '#516C7C' : '#0368ff', 
+            textTransform: greyHeaders.includes(location.pathname.split("/")[1]) ? 'none' : 'uppercase', 
+            fontWeight: greyHeaders.includes(location.pathname.split("/")[1]) ? '400' : '600', 
+            fontSize:  greyHeaders.includes(location.pathname.split("/")[1]) ? '16px' : '14px'
+          }}
+        >
           { location.pathname.split("/")[1] === 'exam' ? headerTitle[`exam-${location.pathname.split("/")[2]}`] : headerTitle[location.pathname.split("/")[1]]}
         </div>
     </div>

@@ -16,5 +16,6 @@ export const headerTitle = {
     'chat': 'Өтінім',
     'new-request': 'Жаңа өтінім',
     'news':'Жаңалықтар',
-    'tasks': 'Тапсырмалар'
+    'tasks': 'Тапсырмалар',
+    'about': 'Жоба жайлы'
 }
