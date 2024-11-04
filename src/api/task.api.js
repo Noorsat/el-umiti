@@ -99,3 +99,13 @@ export const answerTask = async (body) => {
         return err;
     }
 }
+
+export const apporoveAnswer = async (answerId, status) => {
+    try {
+        const response = await instance.patch(`/api/answer/${answerId}/approve?approved=${status}`, '');
+
+        return response;
+    } catch (err){
+        return err;
+    }
+}

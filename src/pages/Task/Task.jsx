@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { categories } from '../../utils/categories';
 import { useEffect, useState } from 'react';
-import { answerTask, getTask, updateTask } from '../../api/task.api';
+import { answerTask, apporoveAnswer, getTask, updateTask } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 import { Roles } from '../../enums/Roles';
 
@@ -40,6 +40,30 @@ const Task = ({ chatId, role }) => {
             if (res.status == 200){
                 navigate(`/exam/${directionId}`);
             }
+            setLoading(false);
+        })
+    }
+
+    const approveAnswerHandler = () => {
+        setLoading(true);
+
+        apporoveAnswer(task?.answers[0].id, true).then((res) => {
+            if (res.status == 200){
+                navigate(`/exam/${directionId}`)
+            }
+        }).finally(() => {
+            setLoading(false);
+        })
+    }
+
+    const declineAnswerHandler = () => {
+        setLoading(true);
+
+        apporoveAnswer(task?.answers[0].id, false).then((res) => {
+            if (res.status == 200){
+                navigate(`/exam/${directionId}`)
+            }
+        }).finally(() => {
             setLoading(false);
         })
     }
@@ -135,10 +159,12 @@ const Task = ({ chatId, role }) => {
                     <div className="task__buttons">
                         <Button 
                             text="Қабылдау"
+                            onClick={approveAnswerHandler}
                         />
                         <Button 
                             text="Қабылдамау"
-                            backgroundColor='#EE3232'
+                            backgroundColor='#EE3232'o
+                            onClick={declineAnswerHandler}
                         />
                     </div>
                 )
