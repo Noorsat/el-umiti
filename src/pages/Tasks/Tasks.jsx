@@ -3,20 +3,32 @@ import CardItem from '../../components/CardItem/CardItem';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import { categories } from '../../utils/categories';
 import './Tasks.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getDirections } from '../../api/task.api';
+import Loading from '../../components/Loading/Loading';
 
 const Tasks = ({ id }) => {
   const navigate = useNavigate();
 
+  const [directions, setDirections] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
+
     getDirections(id).then((res) => {
-      console.log(res);
+      if (res.data){
+        setDirections(res.data);
+      }
+      setLoading(false);
     })
-  })
+  }, [])
 
   return (
     <div className='tasks'>
+      {
+        loading && <Loading />
+      }
       <div className="tasks__progress">
         <ProgressBar 
           current={12}
@@ -25,11 +37,11 @@ const Tasks = ({ id }) => {
       </div>
       <div className="tasks__categories">
         {
-            categories.map(category => (
+            directions && directions.map((directory, i) => (
                 <CardItem 
-                    title={category.title}
-                    icon={category.icon}
-                    onClick={() => navigate(`/exam/${category.id}`)}
+                    title={directory?.nameKaz}
+                    icon={ categories.filter((category, index) => index == i)[0]?.icon }
+                    onClick={() => navigate(`/exam/${directory?.id}`)}
                 /> 
             ))
         }

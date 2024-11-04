@@ -51,11 +51,11 @@ const Candidate = ({ chatId, setSelectedStudentId }) => {
                     Контакты
                 </div>
                 <div className="candidate__phone-text">
-                    { user?.phone }
+                    { user?.phoneNumber }
                 </div>
             </div>
             <div className="candidate__items">
-                <a href={`tel:${user?.phone}`}>
+                <a href={`tel:${user?.phoneNumber}`}>
                     <BoxItem 
                         icon={PhoneIcon}
                         title={'Хабарласу'}

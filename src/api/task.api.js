@@ -41,13 +41,9 @@ export const createTask = async (body) => {
   
 }
 
-export const getTask = async (chatId, id) => {
+export const getTask = async (id) => {
     try { 
-        const response = await instance.get(`/api/tasks/${id}`, {
-            headers: {
-                'chatId': chatId
-            }
-        })
+        const response = await instance.get(`/api/task/${id}`)
     
         return response;
     } catch (err) {
@@ -87,6 +83,16 @@ export const deleteTask = async (chatId, id) => {
 export const getDirections = async (id) => {
     try { 
         const response = await instance.get(`/api/user/${id}/participant-directions`);
+
+        return response;
+    } catch (err){
+        return err;
+    }
+}
+
+export const answerTask = async (body) => {
+    try {
+        const response = await instance.post(`/api/answer/create`, body);
 
         return response;
     } catch (err){

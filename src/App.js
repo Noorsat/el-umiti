@@ -66,7 +66,7 @@ function App() {
           <Route path='/about' element={<About /> } />
           <Route path='/tasks' element={<Tasks id={id}/>} />
           <Route path='/candidate/:id' element={<Candidate chatId={chatId} setSelectedStudentId={setSelectedStudentId} />} />
-          <Route path='/exam/:id' element={<Exam chatId={chatId} selectedStudentId={selectedStudentId || id} role={role} />} />
+          <Route path='/exam/:id' element={<Exam id={id} selectedStudentId={selectedStudentId || id} role={role} />} />
           <Route path='/task-check/:studentId/:directionId/:taskId/:taskIndex' element={<Task chatId={chatId} role={role} />} />
           <Route path='/task-upload/:id' element={<TaskUpload chatId={chatId} id={id} selectedStudentId={selectedStudentId} />} />
           <Route path='/tech-help' element={<TechHelp />} />

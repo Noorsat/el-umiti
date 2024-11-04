@@ -36,7 +36,7 @@ const Main = ({ role, setIsLogin, user }) => {
             {
                 role == Roles.participant && (
                     <CandidatesItem
-                        name={user?.full_name}
+                        name={user?.fio}
                         iin={user?.iin}
                     />
                 )

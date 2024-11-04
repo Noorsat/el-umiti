@@ -5,10 +5,10 @@ import CameraIcon from '../../assets/images/camera.svg';
 import Task1 from '../../assets/images/task-1.png';
 import Task2 from '../../assets/images/task-2.png';
 import Button from '../../components/Button/Button';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { categories } from '../../utils/categories';
 import { useEffect, useState } from 'react';
-import { getTask, updateTask } from '../../api/task.api';
+import { answerTask, getTask, updateTask } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 import { Roles } from '../../enums/Roles';
 
@@ -19,12 +19,14 @@ const Task = ({ chatId, role }) => {
     const [loading, setLoading] = useState();
     const [studentAnswer, setStudentAnswer] = useState(); 
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         setLoading(true);
 
-        getTask(chatId, taskId).then((res) => {
+        getTask(taskId).then((res) => {
             if (res.status == 200){
-                setTask(res.data.data);
+                setTask(res.data);
             }
         }).finally(() => {
             setLoading(false);
@@ -32,8 +34,13 @@ const Task = ({ chatId, role }) => {
     }, [])
 
     const sendStudentAnswerHandler = () => {
-        updateTask(chatId, taskId, { 
-            student_answer: studentAnswer
+        setLoading(true);
+
+        answerTask({taskId: Number(taskId), text: studentAnswer}).then((res) => {
+            if (res.status == 200){
+                navigate(`/exam/${directionId}`);
+            }
+            setLoading(false);
         })
     }
 
@@ -57,7 +64,7 @@ const Task = ({ chatId, role }) => {
                     №{taskIndex} тапсырма
                 </div>
                 <div className="task__text">
-                    {task?.description}
+                    {task?.descriptionKaz}
                 </div>
             </div>
             <div className="task__title">
@@ -76,29 +83,28 @@ const Task = ({ chatId, role }) => {
                 )
             }
             {
-                (task?.student_answer && role === Roles.mentor ) && (
-                    <div>
-                        <div className="task__title">
-                            Эссе
+                (task?.answers.length > 0 && role === Roles.mentor ) && (
+                    task.answers.map(answer => (
+                        <div style={{ marginBottom: 12}}>
+                            <div className="task__title">
+                                Эссе
+                            </div>
+                            <div className="task__text">
+                                { answer.text }
+                            </div>
                         </div>
-                        <div className="task__text">
-                            Абай жолы романының 1-томынан 50 бет оқу.
-                            Фото-бейне есепті жүктеу және қысқаша эссе жазу. <br></br>
-                            Абай жолы романының 1-томынан 50 бет оқу.
-                            Фото-бейне есепті жүктеу және қысқаша эссе жазу. 
-                        </div>
-                    </div>
+                    ))
                 )
             }
             {
-                (task?.student_answer == null && role == Roles.mentor) && (
+                (!(task?.answers.length > 0) && role == Roles.mentor) && (
                     <div>
                         Студент еще не ответил
                     </div>
                 )
             }
             {
-                (task?.student_answer == null && role == Roles.participant) && (
+                (task?.answers == null && role == Roles.participant) && (
                     <div className='task__answers'>
                         <div className="task__answers-images">
                             <div className="task__answers-image">
@@ -123,7 +129,7 @@ const Task = ({ chatId, role }) => {
                 )
             }
             {
-                task?.student_answer && (
+                task?.answers.length > 0 && (
                     <div className="task__buttons">
                         <Button 
                             text="Қабылдау"

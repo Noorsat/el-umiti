@@ -10,31 +10,33 @@ import { useEffect, useState } from 'react';
 import { getDirections, getTasksByUserId, getTasksByUserIdAndDirectionId } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 
-const Exam = ({ chatId, selectedStudentId, role }) => {
+const Exam = ({ id : userId, selectedStudentId, role }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [tasks, setTasks] = useState([]);
+  const [directions, setDirections] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    getDirections(id).then((res) => {
+    getDirections(selectedStudentId).then((res) => {
       if (res.status === 200){
-        setTasks(res.data);
+        setDirections(res.data);
       }
     }).finally(() => {
       setLoading(false);
     })
   }, [])
 
+  console.log(directions?.filter(category => category.id == id)[0]?.tasks)
+
   return (
     <div className='exam'>
       { loading && <Loading /> }
       <div className="exam__card">
         <CardItem
-          title={categories.filter(category => category.id == id)[0]?.title}
-          icon={categories.filter(category => category.id == id)[0]?.icon}
+          title={directions?.filter(category => category.id == id)[0]?.nameKaz}
+          icon={categories?.filter(item => item.id == directions?.filter(category => category.id == id)[0]?.id)[0]?.icon}
         />
       </div>
       <div className="exam__progress">
@@ -59,7 +61,7 @@ const Exam = ({ chatId, selectedStudentId, role }) => {
         </div>
         <div className="exam__tasks-items">
           {
-            tasks && tasks.map((task, index) => (
+            directions?.filter(category => category.id == id)[0]?.tasks && directions?.filter(category => category.id == id)[0].tasks?.map((task, index) => (
               <Link to={`/task-check/${selectedStudentId}/${id}/${task.id}/${index+1}`} className="exam__tasks-item">
                 <div className="exam__tasks-item-left">
                     <div className={`exam__tasks-item-icon ${task?.status == 1 ? 'exam__tasks-item-notpassed' : ''} ${task?.status == 3 ? 'exam__tasks-item-deadlinepassed' : ''} `}>

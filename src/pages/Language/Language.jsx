@@ -17,6 +17,7 @@ const Language = ({ setChatId, setRole, setId, id, chatId, setUser }) => {
 
     useEffect(() => {
         getUserById(userId).then((res) => {
+            setUser(res.data);
             setRole(res.data?.roles[0]?.name);
         })
 
@@ -29,7 +30,6 @@ const Language = ({ setChatId, setRole, setId, id, chatId, setUser }) => {
         changeLanguage(id, lang).then((res) => {
             if (res.status == 200){
                 navigate('/main');
-                setUser(res.data.data)
             }
 
             setLoading(false)
