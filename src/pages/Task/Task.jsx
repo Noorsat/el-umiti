@@ -44,6 +44,8 @@ const Task = ({ chatId, role }) => {
         })
     }
 
+    console.log(task?.answers)
+
     return (
         <div className='task'>
             { loading && (<Loading /> )}
@@ -104,7 +106,7 @@ const Task = ({ chatId, role }) => {
                 )
             }
             {
-                (task?.answers == null && role == Roles.participant) && (
+                (role == Roles.participant) && (
                     <div className='task__answers'>
                         <div className="task__answers-images">
                             <div className="task__answers-image">
@@ -129,7 +131,7 @@ const Task = ({ chatId, role }) => {
                 )
             }
             {
-                task?.answers.length > 0 && (
+                (task?.answers.length > 0 && role == Roles.mentor) && (
                     <div className="task__buttons">
                         <Button 
                             text="Қабылдау"

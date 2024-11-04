@@ -9,6 +9,7 @@ import { categories } from '../../utils/categories';
 import { useEffect, useState } from 'react';
 import { getDirections, getTasksByUserId, getTasksByUserIdAndDirectionId } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
+import { Roles } from '../../enums/Roles';
 
 const Exam = ({ id : userId, selectedStudentId, role }) => {
   const navigate = useNavigate();
@@ -27,8 +28,6 @@ const Exam = ({ id : userId, selectedStudentId, role }) => {
       setLoading(false);
     })
   }, [])
-
-  console.log(directions?.filter(category => category.id == id)[0]?.tasks)
 
   return (
     <div className='exam'>

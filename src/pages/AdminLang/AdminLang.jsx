@@ -1,19 +1,21 @@
 import './AdminLang.scss';
 import Logo from '../../assets/images/logo.svg';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { updateUserInfo } from '../../api/account.api';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { changeLanguage, getUserById, updateUserInfo } from '../../api/account.api';
 import Loading from '../../components/Loading/Loading';
 
-const AdminLang = ({ id, chatId }) => {
+const AdminLang = ({ id, setId, setUser, setRole }) => {
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState();
 
+    console.log(id);
+
     const selectLanguageHandler = (lang) => {
         setLoading(true);
 
-        updateUserInfo(id, chatId, { lang: lang }).then((res) => {
+        changeLanguage(id, lang).then((res) => {
             if (res.status == 200){
                 navigate('/main')
             }
@@ -28,10 +30,10 @@ const AdminLang = ({ id, chatId }) => {
                 Ел үміті
             </div>
             <div className="adminLang__buttons">
-                <div className="adminLang__button" onClick={() => selectLanguageHandler('kz')}>
+                <div className="adminLang__button" onClick={() => selectLanguageHandler('KAZ')}>
                     Қазақ
                 </div>
-                <div className="adminLang__button" onClick={() => selectLanguageHandler('ru')}>
+                <div className="adminLang__button" onClick={() => selectLanguageHandler('RUS')}>
                     Русский
                 </div>
             </div>

@@ -1,0 +1,32 @@
+.mentors{
+    padding: 42px 16px ;
+
+    &__items{
+        height: 70vh;
+        overflow-y: scroll;
+        margin-bottom: 24px;
+    }
+
+    &__item{
+        margin-bottom: 30px;
+
+        &-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        &-border{
+            height: 1px;
+            width: 166px;
+            border-bottom: 1px dashed #97ABC3;
+        }
+
+        &-name{
+            color: #0B68FF;
+            font-size: 14px;
+            font-weight: 500;   
+        }
+    }
+}

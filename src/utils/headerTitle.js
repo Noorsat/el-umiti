@@ -17,5 +17,6 @@ export const headerTitle = {
     'new-request': 'Жаңа өтінім',
     'news':'Жаңалықтар',
     'tasks': 'Тапсырмалар',
-    'about': 'Жоба жайлы'
+    'about': 'Жоба жайлы',
+    'admin-mentors' : 'Қатысушалыр  тізімі'
 }
