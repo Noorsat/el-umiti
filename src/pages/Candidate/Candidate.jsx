@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { getUserById } from '../../api/account.api';
 import { categories } from '../../utils/categories';
 import Loading from '../../components/Loading/Loading';
+import { getDirections } from '../../api/task.api';
 
 const Candidate = ({ chatId, setSelectedStudentId }) => {
     const navigate = useNavigate();
@@ -18,14 +19,20 @@ const Candidate = ({ chatId, setSelectedStudentId }) => {
     
     const [user, setUser] = useState();
     const [loading, setLoading] = useState();
+    const [directions, setDirections] = useState();
 
     useEffect(() => {
         setLoading(true);
         setSelectedStudentId(id);
-        getUserById(chatId, id).then((res) => {
-            if (res.data.data){
-                setUser(res.data.data)
+        getUserById(id).then((res) => {
+            if (res.data){
+                setUser(res.data)
                 setLoading(false);
+            }
+        })
+        getDirections(id).then((res) => {
+            if (res.data){
+                setDirections(res.data);
             }
         })
     }, [])
@@ -36,7 +43,7 @@ const Candidate = ({ chatId, setSelectedStudentId }) => {
                 loading && <Loading />
             }
             <CandidatesItem 
-                name={user?.full_name}
+                name={user?.fio}
                 iin={user?.iin}
             />
             <div className="candidate__phone">
@@ -71,11 +78,11 @@ const Candidate = ({ chatId, setSelectedStudentId }) => {
             </div>
             <div className="candidate__cards">
                 {
-                    categories.map(category => (
+                    directions && directions.map((direction, i) => (
                         <CardItem 
-                            title={category.title}
-                            icon={category.icon}
-                            onClick={() => navigate(`/exam/${category.id}`)}
+                            title={direction.nameKaz}
+                            icon={categories.filter((item, index) => index == i)[0]?.icon}
+                            onClick={() => navigate(`/exam/${direction.id}`)}
                         /> 
                     ))
                 }

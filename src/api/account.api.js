@@ -1,12 +1,8 @@
 import { instance } from './myAxios';
 
-export const getUserInfo = async (id, chatId) => {
+export const getUserInfo = async (id) => {
     try {
-        const response = await instance.get(`/api/users/${id}`, {
-            headers: {
-                'chatId': chatId
-            }
-        });
+        const response = await instance.get(`/api/user/${id}`);
         
         return response;
     } catch (err){
@@ -29,7 +25,7 @@ export const updateUserInfo = async (id, chatId, body) => {
    
 }
 
-export const getUsersByMentor = async (chatId, mentorId, role) => {
+export const getUsersByMentor = async (id) => {
     // const response = await instance.get(`/api/users?mentor_id=${mentorId}&role=${role}`, {
     //     headers: {
     //         'chatId': chatId
@@ -37,11 +33,7 @@ export const getUsersByMentor = async (chatId, mentorId, role) => {
     // })
 
     try{
-        const response = await instance.get(`/api/users?role=${role}`, {
-            headers: {
-                'chatId': chatId
-            }
-        })
+        const response = await instance.get(`/api/user/${id}/mentor-participants`);
     
         return response;
     } catch (err){
@@ -51,17 +43,22 @@ export const getUsersByMentor = async (chatId, mentorId, role) => {
     
 }
 
-export const getUserById = async (chatId, id) => {
+export const getUserById = async (id) => {
     try {
-        const response = await instance.get(`/api/users/${id}`, {
-            headers: {
-                'chatId': chatId
-            }
-        })
-    
+        const response = await instance.get(`/api/user/${id}`);
+        
         return response;
     } catch (err) {
         return err;
     }
+}
 
+export const changeLanguage = async (id, lang) => {
+    try { 
+        const response = await instance.patch(`/api/user/${id}/set-language?language=${lang}`);
+
+        return response;
+    } catch (err) { 
+        return err;
+    }
 }

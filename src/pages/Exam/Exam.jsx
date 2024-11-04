@@ -7,7 +7,7 @@ import ArrowRight from '../../assets/images/arrow-right.svg';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { categories } from '../../utils/categories';
 import { useEffect, useState } from 'react';
-import { getTasksByUserId, getTasksByUserIdAndDirectionId } from '../../api/task.api';
+import { getDirections, getTasksByUserId, getTasksByUserIdAndDirectionId } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 
 const Exam = ({ chatId, selectedStudentId, role }) => {
@@ -19,9 +19,9 @@ const Exam = ({ chatId, selectedStudentId, role }) => {
 
   useEffect(() => {
     setLoading(true);
-    getTasksByUserIdAndDirectionId(chatId, selectedStudentId, id).then((res) => {
+    getDirections(id).then((res) => {
       if (res.status === 200){
-        setTasks(res.data.data);
+        setTasks(res.data);
       }
     }).finally(() => {
       setLoading(false);
@@ -44,7 +44,7 @@ const Exam = ({ chatId, selectedStudentId, role }) => {
         />
       </div>
       {
-        role == 'mentor' && (
+        role == 'MENTOR' && (
           <div className="exam__button">
             <Button 
               text="Тапсырма жүктеу"

@@ -9,11 +9,13 @@ const Account = ({ id, chatId }) => {
     const [account, setAccount] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    console.log(account)
+
     useEffect(() => {
         setLoading(true);
         getUserInfo(id, chatId).then((res) => {
             if (res.data){
-                setAccount(res.data.data)
+                setAccount({...res.data, role: res.data?.roles[0].name })
             }
             setLoading(false);
         })
@@ -29,7 +31,7 @@ const Account = ({ id, chatId }) => {
                     </div>
                     <div className="account__info">
                         <div className="account__name">
-                            { account?.full_name }
+                            { account?.fio }
                         </div>
                         {
                             account?.role !== Roles.admin && (
@@ -38,7 +40,7 @@ const Account = ({ id, chatId }) => {
                                         ИИН: { account?.iin }
                                     </div>
                                     <div className="account__info-text">
-                                        Тел: { account?.phone }
+                                        Тел: { account?.phoneNumber }
                                     </div>
                                 </>        
                             )

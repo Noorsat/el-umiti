@@ -3,7 +3,7 @@ import KzIcon from '../../assets/images/kz.svg';
 import RuIcon from '../../assets/images/ru.svg';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { updateUserInfo } from '../../api/account.api';
+import { changeLanguage, getUserById, updateUserInfo } from '../../api/account.api';
 import Loading from '../../components/Loading/Loading';
 
 const Language = ({ setChatId, setRole, setId, id, chatId, setUser }) => {
@@ -13,23 +13,20 @@ const Language = ({ setChatId, setRole, setId, id, chatId, setUser }) => {
 
     const location = useLocation().search;
 
-    const params = location && location.split("&");
-
-    const chatIdd = params && params[0].split("=")[1];
-    const role = params && params[1].split("=")[1];
-    const idd = params && params[2].split("=")[1];
+    const userId = location && location.split("=")[1];
 
     useEffect(() => {
-        setChatId(chatIdd);
-        localStorage.setItem('chatId', chatIdd);
-        setRole(role);
-        setId(idd);
+        getUserById(userId).then((res) => {
+            setRole(res.data?.roles[0]?.name);
+        })
+
+        setId(userId);
     }, [])
 
     const selectLanguageHandler = (lang) => {
         setLoading(true);
 
-        updateUserInfo(id, chatId, { lang: lang }).then((res) => {
+        changeLanguage(id, lang).then((res) => {
             if (res.status == 200){
                 navigate('/main');
                 setUser(res.data.data)
@@ -49,7 +46,7 @@ const Language = ({ setChatId, setRole, setId, id, chatId, setUser }) => {
                 Выберите язык
             </div>
             <div className="language__langs">
-                <div className="language__lang" onClick={() => selectLanguageHandler('kz')}>
+                <div className="language__lang" onClick={() => selectLanguageHandler('KAZ')}>
                     <div className="language__lang-icon">
                         <img src={KzIcon} alt="" />
                     </div>
@@ -57,7 +54,7 @@ const Language = ({ setChatId, setRole, setId, id, chatId, setUser }) => {
                         Қазақ тілі
                     </div>
                 </div>
-                <div className="language__lang" onClick={() => selectLanguageHandler('ru')}> 
+                <div className="language__lang" onClick={() => selectLanguageHandler('RUS')}> 
                     <div className="language__lang-icon">
                         <img src={RuIcon} alt="" />
                     </div>

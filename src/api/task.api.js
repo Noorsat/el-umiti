@@ -30,13 +30,9 @@ export const getTasksByUserIdAndDirectionId = async (chatId, userId, directionId
 
 }
 
-export const createTask = async (chatId, body) => {
+export const createTask = async (body) => {
     try {
-        const response = await instance.post(`/api/tasks`, body, {
-            headers: {
-                'chatId': chatId
-            }
-        })
+        const response = await instance.post(`/api/task/create`, body);
     
         return response;
     } catch (err) { 
@@ -76,12 +72,22 @@ export const updateTask = async (chatId, id, body) => {
 
 export const deleteTask = async (chatId, id) => {
     try {
-        const response = await instance.delete( `/api/tasks/${id}`, body, {
+        const response = await instance.delete(`/api/tasks/${id}`, body, {
             headers: {
                 'chatId': chatId
             }
         })
     
+        return response;
+    } catch (err){
+        return err;
+    }
+}
+
+export const getDirections = async (id) => {
+    try { 
+        const response = await instance.get(`/api/user/${id}/participant-directions`);
+
         return response;
     } catch (err){
         return err;

@@ -3,30 +3,45 @@ import CardItem from '../../components/CardItem/CardItem';
 import Button from '../../components/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { categories } from '../../utils/categories';
-import { createTask } from '../../api/task.api';
-import { useState } from 'react';
+import { createTask, getDirections } from '../../api/task.api';
+import { useEffect, useState } from 'react';
 import Loading from '../../components/Loading/Loading';
+import moment from 'moment';
 
 const TaskUpload = ({ chatId, id : userId, selectedStudentId }) => {  
     const { id } = useParams();
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState();
+    const [directions, setDirections] = useState();
     const [task, setTask] = useState({
-        user_id: Number(selectedStudentId),
-        direction_id: categories.filter(category => category.id == id)[0]?.id,
-        title: categories.filter(category => category.id == id)[0]?.title,
-        created_by: Number(userId),
-        mentor_id: Number(userId),
-        description: '',
-        deadline: '',
-        status: 1
+        nameRus: "",
+        nameKaz: "",
+        descriptionKaz: "",
+        descriptionRus: "",
+        deadline: "",
+        participantId: Number(selectedStudentId),
+        directionId: Number(id),
+        mentorId: Number(userId)
     });
+
+
+    useEffect(() => {
+        setLoading(true);
+
+        getDirections(userId).then((res) => {
+            if (res.data){
+                setDirections(res.data);                
+            }
+            setLoading(false);
+
+        }) 
+    }, [])
 
     const createTaskHandler = () => {
         setLoading(true);
-        createTask(chatId, task).then((res) => {
-            if (res.status == 201){
+        createTask({...task, deadline: moment(task?.deadline).format('YYYY-MM-DDT00:00:00.000Z').slice(0, moment(task?.deadline).format('YYYY-MM-DDT00:00:00.000Z').length -3) + "00" }).then((res) => {
+            if (res.status == 200){
                 navigate(`/exam/${id}`)
             }
 
@@ -41,8 +56,8 @@ const TaskUpload = ({ chatId, id : userId, selectedStudentId }) => {
             }
             <div className="upload__card">
                 <CardItem
-                    title={ categories.filter(category => category.id == id)[0]?.title }
-                    icon={ categories.filter(category => category.id == id)[0]?.icon } 
+                    title={ directions?.filter(category => category.id == id)[0]?.nameKaz }
+                    icon={ categories?.filter(item => item.id == directions?.filter(category => category.id == id)[0]?.id)[0]?.icon } 
                 />
             </div>
             <div className="upload__title">
@@ -55,8 +70,8 @@ const TaskUpload = ({ chatId, id : userId, selectedStudentId }) => {
                 <div className="upload__input-textarea">
                     <textarea
                         placeholder="Текст"
-                        value={task?.description}
-                        onChange={(e) => setTask({...task, description: e.target.value})}
+                        value={task?.descriptionKaz}
+                        onChange={(e) => setTask({...task, descriptionKaz: e.target.value})}
                     />
                 </div>
             </div>

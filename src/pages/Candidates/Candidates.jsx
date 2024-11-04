@@ -13,9 +13,9 @@ const Candidates = ({ chatId, id, setSelectedStudentId }) => {
     useEffect(() => {
         setLoading(true);
 
-        getUsersByMentor(chatId, id, Roles.participant).then((res) => {
+        getUsersByMentor(id).then((res) => {
             if (res.status == 200){
-                setCandidates(res.data.data);
+                setCandidates(res.data);
                 setLoading(false);
             }
         })
@@ -36,8 +36,8 @@ const Candidates = ({ chatId, id, setSelectedStudentId }) => {
                     candidates && candidates.map(candidate => (
                         <CandidatesItem 
                             type='blue' 
-                            name={candidate?.full_name}
-                            id={candidate?.id}
+                            name={candidate?.participant?.fio}
+                            id={candidate?.participant?.id}
                         />
                     ))
                 }
