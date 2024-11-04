@@ -6,14 +6,18 @@ import CardItem from '../../components/CardItem/CardItem';
 import PhoneIcon from '../../assets/images/phone.svg';
 import PdfIcon from '../../assets/images/pdf.svg';
 import TasksIcon from '../../assets/images/tasks.svg';
+import MentorChangeIcon from '../../assets/images/mentor-change.svg';
+import ChangeTaskIcon from '../../assets/images/change-task.svg';
+import DeleteIcon from '../../assets/images/delete.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUserById } from '../../api/account.api';
 import { categories } from '../../utils/categories';
 import Loading from '../../components/Loading/Loading';
 import { getDirections } from '../../api/task.api';
+import { Roles } from '../../enums/Roles';
 
-const Candidate = ({ chatId, setSelectedStudentId }) => {
+const Candidate = ({ role, setSelectedStudentId }) => {
     const navigate = useNavigate();
     const { id } = useParams();
     
@@ -69,24 +73,57 @@ const Candidate = ({ chatId, setSelectedStudentId }) => {
                     icon={TasksIcon}
                     title={'Тапсырмалар тізімі'}
                 />
-            </div>
-            <div className='candidate__progress'>
-                <ProgressBar 
-                    current={12}
-                    total={50}
-                />
-            </div>
-            <div className="candidate__cards">
                 {
-                    directions && directions.map((direction, i) => (
-                        <CardItem 
-                            title={direction.nameKaz}
-                            icon={categories.filter((item, index) => index == i)[0]?.icon}
-                            onClick={() => navigate(`/exam/${direction.id}`)}
-                        /> 
-                    ))
+                    role == Roles.admin && (
+                        <BoxItem 
+                            title={'Тәлімгерді таңдау'}
+                            icon={MentorChangeIcon}
+                        />
+                    )
+                }
+                {
+                    role == Roles.admin && (
+                        <BoxItem 
+                            title={'Тапсырманы жаңарту'}
+                            icon={ChangeTaskIcon}
+                        />
+                    )
+                }
+                {
+                    role == Roles.admin && (
+                        <BoxItem 
+                            title={'Жою'}
+                            icon={DeleteIcon}
+                            titleColor={'#FF0B54'}
+                        />
+                    )
                 }
             </div>
+            {
+                role != Roles.admin && (
+                    <div className='candidate__progress'>
+                        <ProgressBar 
+                            current={12}
+                            total={50}
+                        />
+                    </div>
+                )
+            }
+            {
+                role != Roles.admin && (
+                    <div className="candidate__cards">
+                        {
+                            directions && directions.map((direction, i) => (
+                                <CardItem 
+                                    title={direction.nameKaz}
+                                    icon={categories.filter((item, index) => index == i)[0]?.icon}
+                                    onClick={() => navigate(`/exam/${direction.id}`)}
+                                /> 
+                            ))
+                        }
+                    </div>
+                )
+            }
         </div>
     )
 }
