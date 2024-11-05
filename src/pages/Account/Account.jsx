@@ -9,8 +9,6 @@ const Account = ({ id, chatId }) => {
     const [account, setAccount] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    console.log(account)
-
     useEffect(() => {
         setLoading(true);
         getUserInfo(id, chatId).then((res) => {
@@ -78,9 +76,9 @@ const Account = ({ id, chatId }) => {
                     {
                         account?.role == Roles.participant && (
                             <>
-                                <div className="account__item-title">
+                                <a href={`/files/kz.pdf`} className="account__item-title" download>
                                     Тапсырмалар үлгісін жүктеп алу
-                                </div>
+                                </a>
                                 <div className="account__item-title">
                                     Тапсырмаларды жіберу
                                 </div>

@@ -38,6 +38,7 @@ const Main = ({ role, setIsLogin, user }) => {
                     <CandidatesItem
                         name={user?.fio}
                         iin={user?.iin}
+                        id={user?.id}
                     />
                 )
             }

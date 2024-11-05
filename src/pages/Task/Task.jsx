@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { categories } from '../../utils/categories';
 import { useEffect, useState } from 'react';
-import { answerTask, apporoveAnswer, getTask, updateTask } from '../../api/task.api';
+import { answerTask, apporoveAnswer, getImage, getTask, updateTask, uploadFilesToAnswer } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 import { Roles } from '../../enums/Roles';
 
@@ -18,15 +18,39 @@ const Task = ({ chatId, role }) => {
     const [task, setTask] = useState();
     const [loading, setLoading] = useState();
     const [studentAnswer, setStudentAnswer] = useState(); 
+    const [firstFile, setFirstFile] = useState(null);
+    const [firstImage, setFirstImage] = useState(null);
+    const [secondFile, setSecondFile] = useState(null);
+    const [secondImage, setSecondImage] = useState(null);
+    const [images, setImages] = useState([]); 
 
     const navigate = useNavigate();
 
+    const fetchImageUrl = async (imageId) => {
+        const imageUrl = await getImage(imageId);
+
+        setImages(prevImages => [...prevImages, {
+            id: imageId,
+            link: imageUrl
+        }])
+    };
+    
     useEffect(() => {
         setLoading(true);
 
         getTask(taskId).then((res) => {
             if (res.status == 200){
-                setTask(res.data);
+                setTask({...res.data, answers: res.data?.answers?.map(answer => {
+                    return {
+                        ...answer,
+                        answerFiles: answer?.answerFiles?.map(file => {
+                            return {
+                                ...file, 
+                                fileLink: fetchImageUrl(file.id)
+                            }
+                        })
+                    }
+                })});
             }
         }).finally(() => {
             setLoading(false);
@@ -38,10 +62,31 @@ const Task = ({ chatId, role }) => {
 
         answerTask({taskId: Number(taskId), text: studentAnswer}).then((res) => {
             if (res.status == 200){
-                navigate(`/exam/${directionId}`);
+
+                if (firstFile || secondFile){
+                    const formData = new FormData();
+
+                    if (firstFile){
+                        formData.append('files', firstFile);
+                    }
+                    if (secondFile){
+                        formData.append('files', secondFile);
+                    }
+    
+                    uploadFilesToAnswer(res.data.id, formData).then((res) => {
+                        if (res.status == 200){
+                            navigate(`/exam/${directionId}`);
+                        }
+                    })
+                }else{
+                    navigate(`/exam/${directionId}`);
+                }
+              
             }
             setLoading(false);
         })
+
+
     }
 
     const approveAnswerHandler = () => {
@@ -67,9 +112,25 @@ const Task = ({ chatId, role }) => {
             setLoading(false);
         })
     }
+    
+    const firstImageHandler = (event) => {
+        const file = event.target.files[0];
+        setFirstFile(file);
+        if (file) {
+          const previewUrl = URL.createObjectURL(file);
+          setFirstImage(previewUrl);
+        }
+    }
 
-    console.log(task?.answers)
-
+    const secondImageHandler = (event) => {
+        const file = event.target.files[0];
+        setSecondFile(file);
+        if (file) {
+          const previewUrl = URL.createObjectURL(file);
+          setSecondImage(previewUrl);
+        }
+    }
+    
     return (
         <div className='task'>
             { loading && (<Loading /> )}
@@ -96,7 +157,7 @@ const Task = ({ chatId, role }) => {
             <div className="task__title">
                 Қатысушы жауабы
             </div>
-            {
+            {/* {
                 task?.files?.length > 0 && (
                     <div className="task__images">
                         <div className="task__image">
@@ -107,7 +168,7 @@ const Task = ({ chatId, role }) => {
                         </div>
                     </div>
                 )
-            }
+            } */}
             {
                 (task?.answers.length > 0 && role === Roles.mentor ) && (
                     task.answers.map(answer => (
@@ -118,7 +179,18 @@ const Task = ({ chatId, role }) => {
                             <div className="task__text">
                                 { answer.text }
                             </div>
+                            <div className="task__images">
+                                {
+                                    answer?.answerFiles?.map(file => {
+                                        return (
+                                            <img src={ images.filter(image => image.id == file.id)[0]?.link } width={'50%'} />  
+                                        )
+                                    })
+                                }
+                             
+                            </div>
                         </div>
+                        
                     ))
                 )
             }
@@ -135,9 +207,17 @@ const Task = ({ chatId, role }) => {
                         <div className="task__answers-images">
                             <div className="task__answers-image">
                                 <img src={CameraIcon} alt="camera" />
+                                <input type='file' onChange={(e) => firstImageHandler(e)} />
+                                {
+                                    firstImage && <img className='task__answers-image-item' src={firstImage} />
+                                }
                             </div>
                             <div className="task__answers-image">
                                 <img src={CameraIcon} alt="camera" />
+                                <input type='file' onChange={(e) => secondImageHandler(e)} />
+                                {
+                                    secondImage && <img className='task__answers-image-item' src={secondImage} />
+                                }
                             </div>
                         </div>
                         <div className="task__answers-input">
@@ -155,7 +235,7 @@ const Task = ({ chatId, role }) => {
                 )
             }
             {
-                (task?.answers.length > 0 && role == Roles.mentor) && (
+                (task?.answers.length > 0 && role == Roles.mentor && !(task?.answers?.filter(answer => (answer.approved == true ||  answer.approved == false)).length > 0)) && (
                     <div className="task__buttons">
                         <Button 
                             text="Қабылдау"
@@ -166,6 +246,20 @@ const Task = ({ chatId, role }) => {
                             backgroundColor='#EE3232'o
                             onClick={declineAnswerHandler}
                         />
+                    </div>
+                )
+            }
+            {
+                (task?.answers.length > 0 && role == Roles.mentor && (task?.answers?.filter(answer => answer.approved == true).length > 0)) && (
+                    <div className="task__success">
+                        Қабылданды
+                    </div>
+                )
+            }
+             {
+                (task?.answers.length > 0 && role == Roles.mentor && (task?.answers?.filter(answer => answer.approved == false).length > 0)) && (
+                    <div className="task__error">
+                        Қабылданбады
                     </div>
                 )
             }

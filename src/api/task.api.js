@@ -100,11 +100,37 @@ export const answerTask = async (body) => {
     }
 }
 
+export const uploadFilesToAnswer = async (answerId, body) => {
+    try {
+        const response = await instance.post(`/api/answer/${answerId}/upload-files`, body, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        return response;
+    } catch (err){
+        return err;
+    }
+}
+
 export const apporoveAnswer = async (answerId, status) => {
     try {
         const response = await instance.patch(`/api/answer/${answerId}/approve?approved=${status}`, '');
 
         return response;
+    } catch (err){
+        return err;
+    }
+}
+
+export const getImage = async (imageId) => {
+    try {
+        const response = await instance.get(`/api/answer-file/${imageId}`,{
+            responseType: 'blob',
+          });
+
+        return URL.createObjectURL(response.data);
     } catch (err){
         return err;
     }

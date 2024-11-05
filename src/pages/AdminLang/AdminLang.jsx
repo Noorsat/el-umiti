@@ -10,8 +10,6 @@ const AdminLang = ({ id, setId, setUser, setRole }) => {
 
     const [loading, setLoading] = useState();
 
-    console.log(id);
-
     const selectLanguageHandler = (lang) => {
         setLoading(true);
 
