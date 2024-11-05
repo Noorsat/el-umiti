@@ -85,7 +85,7 @@ function App() {
           <MessageSend />
         )
       }
-      {(isLogin && !hideBottomPanelPages.includes(page)) && <BottomPanel />}
+      {(isLogin && !hideBottomPanelPages.includes(page)) && <BottomPanel role={role} />}
     </div>
   );
 }

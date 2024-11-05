@@ -74,9 +74,7 @@ const Task = ({ chatId, role }) => {
                     }
     
                     uploadFilesToAnswer(res.data.id, formData).then((res) => {
-                        if (res.status == 200){
-                            navigate(`/exam/${directionId}`);
-                        }
+                        navigate(`/exam/${directionId}`);
                     })
                 }else{
                     navigate(`/exam/${directionId}`);
@@ -202,7 +200,7 @@ const Task = ({ chatId, role }) => {
                 )
             }
             {
-                (role == Roles.participant) && (
+                ((task?.answers.length == 0) && role == Roles.participant) && (
                     <div className='task__answers'>
                         <div className="task__answers-images">
                             <div className="task__answers-image">
@@ -231,6 +229,13 @@ const Task = ({ chatId, role }) => {
                         <div className="task__answers-button" onClick={sendStudentAnswerHandler}>
                             Жіберу
                         </div>
+                    </div>
+                )
+            }
+            {
+                (!(task?.answers.length == 0) && role == Roles.participant) && (
+                    <div className='task__answers'>
+                        Сіз жауап беріп қойдыныз
                     </div>
                 )
             }

@@ -3,9 +3,9 @@ import TasksIcon from '../../assets/images/panel-1.svg';
 import MainPageIcon from '../../assets/images/panel-2.svg';
 import AccountIcon from '../../assets/images/panel-3.svg';
 import { Link, useLocation } from 'react-router-dom';
+import { Roles } from '../../enums/Roles';
 
-const BottomPanel = () => {
-
+const BottomPanel = ({ role }) => {
     return (
         <div className='bottomPanel'>
             <div className="bottomPanel__items">
@@ -14,7 +14,7 @@ const BottomPanel = () => {
                         <img src={TasksIcon} alt="tasks" />
                     </div>
                     <div className="bottomPanel__item-title">
-                        Тапсырмалар
+                        { role == Roles.admin ? 'Қатысушылар' : 'Тапсырмалар' }
                     </div>
                 </Link>
                 <Link to={`/main`} className="bottomPanel__item">
