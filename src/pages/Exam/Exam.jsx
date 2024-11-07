@@ -63,7 +63,7 @@ const Exam = ({ id : userId, selectedStudentId, role }) => {
             directions?.filter(category => category.id == id)[0]?.tasks && directions?.filter(category => category.id == id)[0].tasks?.map((task, index) => (
               <Link to={`/task-check/${selectedStudentId}/${id}/${task.id}/${index+1}`} className="exam__tasks-item">
                 <div className="exam__tasks-item-left">
-                    <div className={`exam__tasks-item-icon ${task?.status == 1 ? 'exam__tasks-item-notpassed' : ''} ${task?.status == 3 ? 'exam__tasks-item-deadlinepassed' : ''} `}>
+                    <div className={`exam__tasks-item-icon ${task?.status == 1 ? 'exam__tasks-item-notpassed' : ''} ${task?.status == 3 ? 'exam__tasks-item-deadlinepassed' : ''}`}>
                       { task?.status == 2 && <img src={SuccessIcon} alt="" /> }
                     </div>
                     <div className="exam__tasks-item-title">

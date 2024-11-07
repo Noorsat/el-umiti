@@ -9,6 +9,7 @@ import TasksIcon from '../../assets/images/tasks.svg';
 import MentorChangeIcon from '../../assets/images/mentor-change.svg';
 import ChangeTaskIcon from '../../assets/images/change-task.svg';
 import DeleteIcon from '../../assets/images/delete.svg';
+import ParticipiantsIcon from '../../assets/images/participiants.svg';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getUserById } from '../../api/account.api';
@@ -59,30 +60,48 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                 </div>
             </div>
             <div className="candidate__items">
+                {
+                    role == Roles.admin && user?.roles[0]?.name == Roles.mentor && (
+                        <BoxItem 
+                            title={'Қатысушылар'}
+                            icon={ParticipiantsIcon}
+                            onClick={() => navigate(`/candidates/${id}`)}
+                        /> 
+                    )
+                }
                 <a href={`tel:${user?.phoneNumber}`}>
                     <BoxItem 
                         icon={PhoneIcon}
                         title={'Хабарласу'}
                     />
                 </a>
-                <BoxItem 
-                    icon={PdfIcon}
-                    title={'Разрешение PDF'}
-                />
-                <BoxItem 
-                    icon={TasksIcon}
-                    title={'Тапсырмалар тізімі'}
-                />
                 {
-                    role == Roles.admin && (
+                    !(role == Roles.admin && user?.roles[0]?.name == Roles.mentor) && (
                         <BoxItem 
-                            title={'Тәлімгерді таңдау'}
-                            icon={MentorChangeIcon}
+                            icon={PdfIcon}
+                            title={'Разрешение PDF'}
+                        />
+                    )
+                }
+                  {
+                    !(role == Roles.admin && user?.roles[0]?.name == Roles.mentor) && (
+                        <BoxItem 
+                            icon={TasksIcon}
+                            title={'Тапсырмалар тізімі'}
                         />
                     )
                 }
                 {
-                    role == Roles.admin && (
+                    (role == Roles.admin && user?.roles[0]?.name == Roles.participant) && (
+                        <BoxItem 
+                            title={'Тәлімгерді таңдау'}
+                            icon={MentorChangeIcon}
+                            onClick={() => navigate(`/change-mentor/${id}`)}
+                        />
+                    )
+                }
+                {
+                    (role == Roles.admin && user?.roles[0]?.name == Roles.participant) && (
                         <BoxItem 
                             title={'Тапсырманы жаңарту'}
                             icon={ChangeTaskIcon}

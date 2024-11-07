@@ -1,8 +1,8 @@
 import './BoxItem.scss';
 
-const BoxItem = ({ icon, title, titleColor }) => {
+const BoxItem = ({ icon, title, titleColor, onClick }) => {
   return (
-    <div className='box'>
+    <div className='box' onClick={onClick}> 
         <div className="box__icon">
             <img src={icon} alt="" />
         </div>

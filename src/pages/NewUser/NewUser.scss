@@ -26,6 +26,7 @@
             outline: none;
             color: #c1c1c1;
             font-size: 12px;
+            font-weight: 700;
         }
         &-input input::placeholder{
             color: #c1c1c1;
@@ -54,15 +55,19 @@
         }
     }
 
-    &__button{
-        color: #fff;
-        background: #0358FF;
-        border-radius: 8px;
-        font-weight: 500;
-        font-size: 16px;
-        padding: 23px 120px;
-        width: fit-content;
-        margin:0 auto;
-        margin-bottom: 16px;
+    &__button {
+        text-align: center;
+
+        button{
+            color: #fff;
+            background: #0358FF;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 23px 120px;
+            margin-bottom: 16px;
+            outline: none;
+            border:none;
+        }
     }
 }

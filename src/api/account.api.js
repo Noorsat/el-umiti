@@ -72,3 +72,23 @@ export const createUser = async (body) => {
         return err;
     }
 }
+
+export const getAddresses = async () => {
+    try { 
+        const response = await instance.get(`api/user/addresses`);
+        
+        return response;
+    } catch (err){
+        return err;
+    }
+}
+
+export const defineMentorToUser = async (userId, mentorId) => {
+    try { 
+        const response = await instance.post(`api/user/${userId}/${mentorId}`);
+        
+        return response;
+    } catch (err){
+        return err;
+    }
+}

@@ -1,19 +1,23 @@
 import './Candidates.scss';
 import CandidatesItem from "../../components/CandidatesItem/CandidatesItem"
-import Button from '../../components/Button/Button';
 import { useEffect, useState } from 'react';
 import { getUsersByMentor } from '../../api/account.api';
-import { Roles } from '../../enums/Roles';
 import Loading from '../../components/Loading/Loading';
+import { useNavigate, useParams } from 'react-router-dom';
+import Button from '../../components/Button/Button';
+import { Roles } from '../../enums/Roles';
 
-const Candidates = ({ chatId, id, setSelectedStudentId }) => {
+const Candidates = ({ chatId, id, setSelectedStudentId, role }) => {
+    const { mentorId } = useParams(); 
+    const navigate = useNavigate();
+
     const [candidates, setCandidates] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setLoading(true);
 
-        getUsersByMentor(id).then((res) => {
+        getUsersByMentor(mentorId || id).then((res) => {
             if (res.status == 200){
                 setCandidates(res.data);
                 setLoading(false);
@@ -24,6 +28,14 @@ const Candidates = ({ chatId, id, setSelectedStudentId }) => {
     return (
         <div className='candidates'>
             { loading && <Loading /> }
+            {
+                (role == Roles.admin && mentorId) && (
+                    <Button 
+                        text={`Жаңа қатысушы қосу`}
+                        onClick={() => navigate(`/new-user/${mentorId}`)}
+                    />            
+                )
+            }
             <div className="candidates__header">
                 <div className="candidates__title">
                     Жалпы саны { candidates.length }

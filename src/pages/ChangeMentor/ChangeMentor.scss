@@ -1,0 +1,38 @@
+.changeMentor{
+    padding: 0 16px;
+    height: 100%;
+    position: relative;
+
+    &__title{
+        padding-top: 50px;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #000;
+    }
+
+    &__select select{
+        outline: none;
+        border: 1px solid #ecf1f6;
+        width: 100%;
+        padding: 16px;
+        border-radius: 8px;
+    }
+
+    &__button {
+        position: absolute;
+        bottom: 0;
+        width: calc(100% - 32px);
+
+        button{
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+            padding: 18.5px 0;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            background: #0b68ff;
+        }
+    }   
+}

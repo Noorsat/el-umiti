@@ -18,5 +18,7 @@ export const headerTitle = {
     'news':'Жаңалықтар',
     'tasks': 'Тапсырмалар',
     'about': 'Жоба жайлы',
-    'admin-mentors' : 'Қатысушалыр  тізімі'
+    'admin-mentors' : 'Қатысушалыр  тізімі',
+    'new-user': 'Жаңа қатысушы',
+    'change-mentor': 'Тәлімгер таңдау'
 }

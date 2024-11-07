@@ -25,6 +25,8 @@ import { Roles } from './enums/Roles';
 import About from './pages/About/About';
 import AdminMentors from './pages/AdminMentors/AdminMentors';
 import NewUser from './pages/NewUser/NewUser';
+import ChangeMentor from './pages/ChangeMentor/ChangeMentor';
+import Mentors from './pages/Mentors/Mentors';
 
 
 function App() {
@@ -39,7 +41,7 @@ function App() {
   const [selectedStudentId, setSelectedStudentId] = useState(null);
   const [user, setUser] = useState(null);
 
-  const hideBottomPanelPages = ['chat', 'request-success'];
+  const hideBottomPanelPages = ['chat', 'request-success', 'change-mentor'];
   const hideHeaderPages = ['request-success']
 
   const loginAccountHandler = () => {
@@ -65,6 +67,7 @@ function App() {
           <Route path='main' element={<Main role={role} setIsLogin={setIsLogin} user={user} />} />
           <Route path='account' element={<Account id={id} chatId={chatId} />} />
           <Route path='candidates' element={<Candidates chatId={chatId} id={id}  />} />
+          <Route path='/candidates/:mentorId' element={<Candidates chatId={chatId} id={id} role={role} />} />
           <Route path='/about' element={<About /> } />
           <Route path='/tasks' element={<Tasks id={id}/>} />
           <Route path='/candidate/:id' element={<Candidate role={role} setSelectedStudentId={setSelectedStudentId} />} />
@@ -80,6 +83,9 @@ function App() {
           <Route path='/admin/lang' element={<AdminLang id={id} chatId={chatId} setId={setId} setUser={setUser} setRole={setRole} />}  />
           <Route path='/admin-mentors' element={<AdminMentors />} />
           <Route path='/new-user' element={<NewUser />} />
+          <Route path='/new-user/:mentorId' element={<NewUser />} />
+          <Route path='/change-mentor/:userId' element={<ChangeMentor /> } />
+          <Route path='/mentors' element={<Mentors />} />
         </Routes>
       </div>
       {

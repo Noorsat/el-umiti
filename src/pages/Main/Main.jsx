@@ -73,7 +73,7 @@ const Main = ({ role, setIsLogin, user }) => {
             {
                 role == Roles.admin && (
                     <div className='main__admin-items'>
-                        <Link className="main__admin-item" to={`/admin-mentors`}>
+                        <Link className="main__admin-item" to={`/mentors`}>
                             <div className="main__admin-item-img">
                                 <img src={MentorIcon} alt="" />
                             </div>
@@ -81,7 +81,7 @@ const Main = ({ role, setIsLogin, user }) => {
                                 Тәлімгер
                             </div>
                         </Link>
-                        <Link className="main__admin-item">
+                        <Link className="main__admin-item" to={`/admin-mentors`}>
                             <div className="main__admin-item-img">
                                 <img src={ParticipiantIcon} alt="" />
                             </div>
