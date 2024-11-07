@@ -24,6 +24,7 @@ import Tasks from './pages/Tasks/Tasks';
 import { Roles } from './enums/Roles';
 import About from './pages/About/About';
 import AdminMentors from './pages/AdminMentors/AdminMentors';
+import NewUser from './pages/NewUser/NewUser';
 
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
           <Route path='/news/:id' element={<NewsItem />} />
           <Route path='/admin/lang' element={<AdminLang id={id} chatId={chatId} setId={setId} setUser={setUser} setRole={setRole} />}  />
           <Route path='/admin-mentors' element={<AdminMentors />} />
+          <Route path='/new-user' element={<NewUser />} />
         </Routes>
       </div>
       {

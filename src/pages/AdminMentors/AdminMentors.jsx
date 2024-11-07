@@ -7,8 +7,11 @@ import CardItem from '../../components/CardItem/CardItem';
 import CandidatesItem from '../../components/CandidatesItem/CandidatesItem';
 import Loading from '../../components/Loading/Loading';
 import Button from '../../components/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 const AdminMentors = () => {
+    const navigate = useNavigate();
+
     const [mentors, setMentors] = useState(null);
     const [students, setStudents] = useState(null);
     const [selectedMentorId, setSelecteMentorId] = useState(null);
@@ -77,7 +80,7 @@ const AdminMentors = () => {
             </div>
             <Button
                 text="Жаңа қатысушы қосу"
-                onClick={() => navigate(``)}
+                onClick={() => navigate(`/new-user`)}
             />
         </div>
     )

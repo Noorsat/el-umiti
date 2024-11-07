@@ -62,3 +62,13 @@ export const changeLanguage = async (id, lang) => {
         return err;
     }
 }
+
+export const createUser = async (body) => {
+    try { 
+        const response = await instance.post(`api/user/create`, body);
+        
+        return response;
+    } catch (err){
+        return err;
+    }
+}

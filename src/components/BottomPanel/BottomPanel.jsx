@@ -9,12 +9,12 @@ const BottomPanel = ({ role }) => {
     return (
         <div className='bottomPanel'>
             <div className="bottomPanel__items">
-                <Link to={`/tasks`} className="bottomPanel__item">
+                <Link to={(role == Roles.admin || role == Roles.mentor ) ? `/admin-mentors` : `/tasks`} className="bottomPanel__item">
                     <div className="bottomPanel__item-icon">
                         <img src={TasksIcon} alt="tasks" />
                     </div>
                     <div className="bottomPanel__item-title">
-                        { role == Roles.admin ? 'Қатысушылар' : 'Тапсырмалар' }
+                        { (role == Roles.admin || role == Roles.mentor ) ? 'Қатысушылар' : 'Тапсырмалар' }
                     </div>
                 </Link>
                 <Link to={`/main`} className="bottomPanel__item">

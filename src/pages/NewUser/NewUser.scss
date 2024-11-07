@@ -1,0 +1,68 @@
+.newUser{
+    padding: 0 16px;
+
+    &__title{
+        padding-top: 22px;
+        margin-bottom: 24px;
+        color: #0358FF;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    &__input{
+        margin-bottom: 24px;
+
+        &-label{
+            color: #000;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        &-input input{
+            border: 1px solid #ECF1F6;
+            border-radius: 8px;
+            width: 100%;
+            padding: 16px;
+            outline: none;
+            color: #c1c1c1;
+            font-size: 12px;
+        }
+        &-input input::placeholder{
+            color: #c1c1c1;
+            font-size: 12px;
+        }
+    }
+
+    &__select{
+        margin-bottom: 24px;
+
+        &-label{
+            color: #000;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        &-select select{
+            border: 1px solid #ECF1F6;
+            border-radius: 8px;
+            width: 100%;
+            padding: 16px;
+            outline: none;
+            color: #c1c1c1;
+            font-size: 12px;
+        }
+    }
+
+    &__button{
+        color: #fff;
+        background: #0358FF;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 16px;
+        padding: 23px 120px;
+        width: fit-content;
+        margin:0 auto;
+        margin-bottom: 16px;
+    }
+}
