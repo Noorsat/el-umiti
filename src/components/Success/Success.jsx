@@ -1,8 +1,11 @@
 import './Success.scss';
 import Button from '../Button/Button';
 import SuccessIcon from '../../assets/images/success.svg';
+import { useTranslation } from 'react-i18next';
 
 const Success = ({text}) => {
+    const { t } = useTranslation();
+
   return (
     <div className='success'>
         <div className="success__image">
@@ -13,7 +16,7 @@ const Success = ({text}) => {
         </div>
         <div className="success__button">
             <Button 
-                text={"Артқа"}
+                text={t('back')}
                 paddingY={23}
             />
         </div>

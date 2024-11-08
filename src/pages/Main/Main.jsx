@@ -9,8 +9,10 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import MentorIcon from '../../assets/images/mentor.svg';
 import ParticipiantIcon from '../../assets/images/participant.svg';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Main = ({ role, setIsLogin, user }) => {
+    const { t } = useTranslation();
 
     useEffect(() => {
         setIsLogin(true);
@@ -20,7 +22,7 @@ const Main = ({ role, setIsLogin, user }) => {
         <div className='main' style={{ padding: '0 16px'}}>
             <div className="main__chat">
                 <div className="main__chat-title">
-                    “Ел үміті” медаліне<br></br> үміткерлер чат-боты
+                    {t('descr')}
                 </div>
             </div>
             <Link className="main__about" to={`/about`}>
@@ -29,7 +31,7 @@ const Main = ({ role, setIsLogin, user }) => {
                         <img src={InfoIcon} alt="info" />
                     </div>
                     <div className="main__about-title">
-                        Жоба жайлы
+                        {t('aboutProject')}
                     </div>
                 </div>
             </Link>
@@ -58,7 +60,7 @@ const Main = ({ role, setIsLogin, user }) => {
                         <img src={NewsIcon} alt="news" />
                     </div>
                     <div className="main__item-title">
-                        Жаңалықтар
+                        {t('news')}
                     </div>
                 </Link>
                 <Link className="main__item" to={`/tech-help`}>
@@ -66,7 +68,7 @@ const Main = ({ role, setIsLogin, user }) => {
                         <img src={CallCenterIcon} alt="call-center-icon" />
                     </div>
                     <div className="main__item-title">
-                        Тех. қолдау
+                        {t('techSupport')}
                     </div>
                 </Link>
             </div>

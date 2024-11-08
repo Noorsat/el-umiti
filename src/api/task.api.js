@@ -100,9 +100,9 @@ export const answerTask = async (body) => {
     }
 }
 
-export const uploadFilesToAnswer = async (answerId, body) => {
+export const uploadFilesToAnswer = async (answerId, body, fileType) => {
     try {
-        const response = await instance.post(`/api/answer/${answerId}/upload-files`, body, {
+        const response = await instance.post(`/api/answer/${answerId}/upload-files?fileType=${fileType}`, body, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

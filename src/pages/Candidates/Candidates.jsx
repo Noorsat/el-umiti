@@ -6,8 +6,10 @@ import Loading from '../../components/Loading/Loading';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { Roles } from '../../enums/Roles';
+import { useTranslation } from 'react-i18next';
 
 const Candidates = ({ chatId, id, setSelectedStudentId, role }) => {
+    const { t } = useTranslation();
     const { mentorId } = useParams(); 
     const navigate = useNavigate();
 
@@ -38,7 +40,7 @@ const Candidates = ({ chatId, id, setSelectedStudentId, role }) => {
             }
             <div className="candidates__header">
                 <div className="candidates__title">
-                    Жалпы саны { candidates.length }
+                    {t('count')} { candidates.length }
                 </div>
                 <div className="candidates__line">
                 </div>

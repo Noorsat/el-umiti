@@ -3,8 +3,10 @@ import './ChangeMentor.scss';
 import { getMentors } from '../../api/users.api';
 import { defineMentorToUser } from '../../api/account.api';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ChangeMentor = () => {
+    const { t } = useTranslation();
     const { userId } = useParams();
     const navigate = useNavigate();
 
@@ -37,11 +39,11 @@ const ChangeMentor = () => {
     return (
         <div className='changeMentor'>
             <div className="changeMentor__title">
-                Тәлімгерді таңдаңыз
+                {t('selectMentorPrompt')}
             </div>
             <div className="changeMentor__select">
                 <select value={selectedMentorId} onChange={(e) => setSelectedMentorId(e.target.value)}>
-                    <option value="">Таңдалмаған</option>
+                    <option value="">{t('notSelected')}</option>
                     {
                         mentors && mentors.map((mentor) => (
                             <option value={mentor?.id}>{mentor?.fio}</option>
@@ -51,7 +53,7 @@ const ChangeMentor = () => {
             </div>
             <div className="changeMentor__button">
                 <button disabled={!selectedMentorId} onClick={changeMentorHandler}>
-                    Сақтау
+                    {t('save')}
                 </button>
             </div>
         </div>

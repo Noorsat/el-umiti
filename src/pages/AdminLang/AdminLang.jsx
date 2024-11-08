@@ -4,20 +4,24 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { changeLanguage, getUserById, updateUserInfo } from '../../api/account.api';
 import Loading from '../../components/Loading/Loading';
+import { useTranslation } from 'react-i18next';
 
 const AdminLang = ({ id, setId, setUser, setRole }) => {
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState();
 
     const selectLanguageHandler = (lang) => {
         setLoading(true);
+        i18n.changeLanguage(lang == "KAZ" ? 'kz' : 'ru')
 
         changeLanguage(id, lang).then((res) => {
             if (res.status == 200){
-                navigate('/main')
+                navigate('/main');
             }
-            setLoading(false);
+
+            setLoading(false)
         })
     }
 

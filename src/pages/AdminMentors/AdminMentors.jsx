@@ -8,8 +8,10 @@ import CandidatesItem from '../../components/CandidatesItem/CandidatesItem';
 import Loading from '../../components/Loading/Loading';
 import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const AdminMentors = () => {
+    const {t} = useTranslation();
     const navigate = useNavigate();
 
     const [mentors, setMentors] = useState(null);
@@ -79,7 +81,7 @@ const AdminMentors = () => {
                 }
             </div>
             <Button
-                text="Жаңа қатысушы қосу"
+                text={t('addNewParticipant')}
                 onClick={() => navigate(`/new-user`)}
             />
         </div>

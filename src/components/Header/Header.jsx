@@ -1,11 +1,17 @@
 import './Header.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { headerTitle } from '../../utils/headerTitle';
+import { headerTitle, headerTitleKz } from '../../utils/headerTitleKz';
 import BackIcon from '../../assets/images/back-arrow.svg';
+import { useTranslation } from 'react-i18next';
+import { headerTitleRu } from '../../utils/headerTitleRu';
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+
+  const currentLanguage = i18n.language;
+
   const greyHeaders = ['tech-help', 'chat', 'new-request', 'news']
 
   return (
@@ -26,7 +32,7 @@ const Header = () => {
             fontSize:  greyHeaders.includes(location.pathname.split("/")[1]) ? '16px' : '14px'
           }}
         >
-          { location.pathname.split("/")[1] === 'exam' ? headerTitle[`exam-${location.pathname.split("/")[2]}`] : headerTitle[location.pathname.split("/")[1]]}
+          { location.pathname.split("/")[1] === 'exam' ? (currentLanguage == 'kz' ? headerTitleKz[`exam-${location.pathname.split("/")[2]}`] : headerTitleRu[`exam-${location.pathname.split("/")[2]}`]) : (currentLanguage == 'kz' ? headerTitleKz[location.pathname.split("/")[1]] : headerTitleRu[location.pathname.split("/")[1]]) }
         </div>
     </div>
   )

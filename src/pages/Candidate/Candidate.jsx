@@ -17,10 +17,14 @@ import { categories } from '../../utils/categories';
 import Loading from '../../components/Loading/Loading';
 import { getDirections } from '../../api/task.api';
 import { Roles } from '../../enums/Roles';
+import { useTranslation } from 'react-i18next';
 
 const Candidate = ({ role, setSelectedStudentId }) => {
+    const { t, i18n } = useTranslation(); 
     const navigate = useNavigate();
     const { id } = useParams();
+
+    const currentLanguage = i18n.language;
     
     const [user, setUser] = useState();
     const [loading, setLoading] = useState();
@@ -53,7 +57,7 @@ const Candidate = ({ role, setSelectedStudentId }) => {
             />
             <div className="candidate__phone">
                 <div className="candidate__phone-title">
-                    Контакты
+                    {t('contacts')}
                 </div>
                 <div className="candidate__phone-text">
                     { user?.phoneNumber }
@@ -63,7 +67,7 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                 {
                     role == Roles.admin && user?.roles[0]?.name == Roles.mentor && (
                         <BoxItem 
-                            title={'Қатысушылар'}
+                            title={t('participant')}
                             icon={ParticipiantsIcon}
                             onClick={() => navigate(`/candidates/${id}`)}
                         /> 
@@ -72,14 +76,14 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                 <a href={`tel:${user?.phoneNumber}`}>
                     <BoxItem 
                         icon={PhoneIcon}
-                        title={'Хабарласу'}
+                        title={t('contactUs')}
                     />
                 </a>
                 {
                     !(role == Roles.admin && user?.roles[0]?.name == Roles.mentor) && (
                         <BoxItem 
                             icon={PdfIcon}
-                            title={'Разрешение PDF'}
+                            title={`${t('permission')} PDF`}
                         />
                     )
                 }
@@ -87,14 +91,14 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                     !(role == Roles.admin && user?.roles[0]?.name == Roles.mentor) && (
                         <BoxItem 
                             icon={TasksIcon}
-                            title={'Тапсырмалар тізімі'}
+                            title={t('taskList')}
                         />
                     )
                 }
                 {
                     (role == Roles.admin && user?.roles[0]?.name == Roles.participant) && (
                         <BoxItem 
-                            title={'Тәлімгерді таңдау'}
+                            title={t('selectMentor')}
                             icon={MentorChangeIcon}
                             onClick={() => navigate(`/change-mentor/${id}`)}
                         />
@@ -103,7 +107,7 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                 {
                     (role == Roles.admin && user?.roles[0]?.name == Roles.participant) && (
                         <BoxItem 
-                            title={'Тапсырманы жаңарту'}
+                            title={t('updateTask')}
                             icon={ChangeTaskIcon}
                         />
                     )
@@ -111,7 +115,7 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                 {
                     role == Roles.admin && (
                         <BoxItem 
-                            title={'Жою'}
+                            title={t('delete')}
                             icon={DeleteIcon}
                             titleColor={'#FF0B54'}
                         />
@@ -134,7 +138,7 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                         {
                             directions && directions.map((direction, i) => (
                                 <CardItem 
-                                    title={direction.nameKaz}
+                                    title={currentLanguage == 'kz' ? direction.nameKaz : direction?.nameRus}
                                     icon={categories.filter((item, index) => index == i)[0]?.icon}
                                     onClick={() => navigate(`/exam/${direction.id}`)}
                                 /> 

@@ -5,8 +5,10 @@ import { createUser, defineMentorToUser, getAddresses } from '../../api/account.
 import { useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import { getMentors } from '../../api/users.api';
+import { useTranslation } from 'react-i18next';
 
 const NewUser = () => {
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const { mentorId } = useParams();
 
@@ -72,25 +74,25 @@ const NewUser = () => {
     <div className='newUser'>
         { loading && <Loading /> }
         <div className="newUser__title">
-            Тіркелу
+            {t('registration')}
         </div>
         <div className="newUser__form">
             <div className="newUser__input">
                 <div className="newUser__input-label">
-                    Аты-жөніңіз
+                    {t('fullName')}
                 </div>
                 <div className="newUser__input-input">
-                    <input type="text" placeholder='Аты-жөніңізді жазыңыз' value={newUser?.fio} onChange={(e) => setNewUser({...newUser, fio: e.target.value }) } />
+                    <input type="text" placeholder={t('fullName')} value={newUser?.fio} onChange={(e) => setNewUser({...newUser, fio: e.target.value }) } />
                 </div>
             </div>
         </div>
         <div className="newUser__select">
             <div className="newUser__select-label">
-                Аудан
+                {t('district')}
             </div>
             <div className="newUser__select-select">
                 <select name="" id="" value={newUser?.address} onChange={(e) => setNewUser({ ...newUser, address: e.target.value }) }>
-                    <option value="" selected disabled hidden>Аудан таңдалмады</option>
+                    <option value="" selected disabled hidden>{t('districtNotChoosen')}</option>
                     {
                         addresses && addresses.map(address => (
                             <option value={address}>{ address }</option>
@@ -102,17 +104,17 @@ const NewUser = () => {
         <div className="newUser__form">
             <div className="newUser__input">
                 <div className="newUser__input-label">
-                    Білім беру ұйымы
+                    {t('institution')}
                 </div>
                 <div className="newUser__input-input">
-                    <input type="text" placeholder='Білім беру ұйымы' value={newUser?.organization} onChange={(e) => setNewUser({...newUser, organization: e.target.value }) } />
+                    <input type="text" placeholder={t('institution')} value={newUser?.organization} onChange={(e) => setNewUser({...newUser, organization: e.target.value }) } />
                 </div>
             </div>
         </div>
         <div className="newUser__form">
             <div className="newUser__input">
                 <div className="newUser__input-label">
-                    Туған күніңіз
+                    {t('birthdate')}
                 </div>
                 <div className="newUser__input-input">
                     <input type="date" placeholder='-- -- ---' value={newUser?.dateOfBirth} onChange={(e) => setNewUser({...newUser, dateOfBirth: e.target.value }) } />
@@ -122,7 +124,7 @@ const NewUser = () => {
         <div className="newUser__form">
             <div className="newUser__input">
                 <div className="newUser__input-label">
-                    Электронды поштаңыз
+                    {t('email')}
                 </div>
                 <div className="newUser__input-input">
                     <input type="text" placeholder='Email' value={newUser?.email} onChange={(e) => setNewUser({...newUser, email: e.target.value })} />
@@ -132,7 +134,7 @@ const NewUser = () => {
         <div className="newUser__form">
             <div className="newUser__input">
                 <div className="newUser__input-label">
-                    Телефон нөміріңіз
+                    {t('phone')}
                 </div>
                 <div className="newUser__input-input">
                     <input type="text" placeholder='+7 7' value={newUser?.phoneNumber} onChange={(e) => setNewUser({...newUser, phoneNumber: e.target.value })} />
@@ -142,10 +144,10 @@ const NewUser = () => {
         <div className="newUser__form">
             <div className="newUser__input">
                 <div className="newUser__input-label">
-                    Жұмыс орны
+                    {t('workplace')}
                 </div>
                 <div className="newUser__input-input">
-                    <input type="text" placeholder='Қайда жұмыс жасайсыз?' value={newUser?.workPlace} onChange={(e) => setNewUser({...newUser, workPlace: e.target.value })}  />
+                    <input type="text" placeholder={t('workplace')} value={newUser?.workPlace} onChange={(e) => setNewUser({...newUser, workPlace: e.target.value })}  />
                 </div>
             </div>
         </div>
@@ -153,11 +155,11 @@ const NewUser = () => {
             !mentorId && (
                 <div className="newUser__select">
                     <div className="newUser__select-label">
-                        Тәлімгер
+                        {t('mentor')}
                     </div>
                     <div className="newUser__select-select">
                         <select name="" id="" value={selectedMentorId} onChange={(e) => setSelectedMentorId(e.target.value) }>
-                            <option value="" selected disabled hidden>Тәлімгер таңдалмады</option>
+                            <option value="" selected disabled hidden>{t('mentorNotChoosen')}</option>
                             {
                                 mentors && mentors.map(mentor => (
                                     <option value={mentor.id}>{ mentor?.fio }</option>
@@ -171,7 +173,7 @@ const NewUser = () => {
        
         <div className="newUser__button">
             <button onClick={createUserHandler} disabled={!Object.values(newUser).every((value) => value !== '')}>
-                Қосу
+                {t('add')}
             </button>
         </div>
     </div>

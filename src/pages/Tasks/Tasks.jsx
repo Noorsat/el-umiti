@@ -6,9 +6,13 @@ import './Tasks.scss';
 import { useEffect, useState } from 'react';
 import { getDirections } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
+import { useTranslation } from 'react-i18next';
 
 const Tasks = ({ id }) => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+
+  const currentLanguage = i18n.language;
 
   const [directions, setDirections] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -39,7 +43,7 @@ const Tasks = ({ id }) => {
         {
             directions && directions.map((directory, i) => (
                 <CardItem 
-                    title={directory?.nameKaz}
+                    title={currentLanguage == 'kz' ? directory?.nameKaz : directory?.nameRus}
                     icon={ categories.filter((category, index) => index == i)[0]?.icon }
                     onClick={() => navigate(`/exam/${directory?.id}`)}
                 /> 

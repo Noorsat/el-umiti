@@ -4,8 +4,11 @@ import { getUserInfo } from '../../api/account.api';
 import { useEffect, useState } from 'react';
 import { Roles } from '../../enums/Roles';
 import Loading from '../../components/Loading/Loading';
+import { useTranslation } from 'react-i18next';
 
 const Account = ({ id, chatId }) => {
+    const { t } = useTranslation();
+
     const [account, setAccount] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -25,7 +28,7 @@ const Account = ({ id, chatId }) => {
         { account && <div className='account'>
             <div className="account__header">
                     <div className="account__avatar">
-                        ОА
+                        {/* ОА   */}
                     </div>
                     <div className="account__info">
                         <div className="account__name">
@@ -54,7 +57,7 @@ const Account = ({ id, chatId }) => {
                 </div>
                 <div className="account__notification">
                     <div className="account__notification-title">
-                        Хабарламалар
+                        { t('notifications') }
                     </div>
                     {/* <div className="account__notification-count">
                         1
@@ -65,10 +68,10 @@ const Account = ({ id, chatId }) => {
                         account?.role == Roles.mentor && (
                             <div className="account__item">
                                 <div className="account__item-text">
-                                    Қатысушылар
+                                    { t('participant') }
                                 </div>
                                 <Link to='/candidates' className="account__item-title">
-                                    Қатысушылар тізімі
+                                    { t('participantList') }
                                 </Link>
                             </div>
                         )
@@ -77,20 +80,20 @@ const Account = ({ id, chatId }) => {
                         account?.role == Roles.participant && (
                             <>
                                 <a href={`/files/kz.pdf`} className="account__item-title" download>
-                                    Тапсырмалар үлгісін жүктеп алу
+                                    {t('downloadTaskTemplate')}
                                 </a>
                                 <div className="account__item-title">
-                                    Тапсырмаларды жіберу
+                                    {t('submitTasks')}
                                 </div>
                             </>
                         )
                     }
                     <div className="account__item">
                         <div className="account__item-text">
-                            Баптаулар
+                            { t('settings') }
                         </div>
                         <div className="account__item-title">
-                            Тілді ауысытыру
+                            { t('changeLanguage') } 
                         </div>
                     </div>
                 </div>

@@ -1,26 +1,21 @@
+import { useTranslation } from 'react-i18next';
 import './About.scss';
 
 const About = () => {
-  return (
-    <div className='about'>
-        <div className="main__chat">
-            <div className="main__chat-title">
-                “Ел үміті” медаліне<br></br> үміткерлер чат-боты
+    const { t } = useTranslation();
+
+    return (
+        <div className='about'>
+            <div className="main__chat">
+                <div className="main__chat-title">
+                    {t('descr')}
+                </div>
+            </div>
+            <div className="about__text">
+                {t('fullDescr')}
             </div>
         </div>
-        <div className="about__text">
-            «ЕЛ ҮМІТІ МЕДАЛІ» Бағдарламасы белсенді, шығармашыл және 
-            талантты жастарды қолдау жөніндегі "El Úmiti" бастаманың бір бөлігі 
-            болып табылады және Қазақстан Республикасы Үкіметінің 2022 жылғы 
-            19 тамыздағы № 581 қаулысымен бекітілген Қазақстан Республикасы 
-            Оқу-ағарту министрлігі туралы ереженің (бұдан әрі - Ереже) 15- 
-            тармағының 235-13) тармақшасына сәйкес әзірленді және он төрт 
-            жастан отыз бес жасқа дейінгі балалар мен жастарды патриотизм мен 
-            белсенді азаматтық ұстанымы үшін «Ел үміті» медалімен марапаттау 
-            тәртібін айқындайды
-        </div>
-    </div>
-  )
+    )
 }
 
 export default About;

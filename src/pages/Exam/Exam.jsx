@@ -10,10 +10,14 @@ import { useEffect, useState } from 'react';
 import { getDirections, getTasksByUserId, getTasksByUserIdAndDirectionId } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 import { Roles } from '../../enums/Roles';
+import { useTranslation } from 'react-i18next';
 
 const Exam = ({ id : userId, selectedStudentId, role }) => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const currentLanguage = i18n.language;
 
   const [directions, setDirections] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -34,7 +38,7 @@ const Exam = ({ id : userId, selectedStudentId, role }) => {
       { loading && <Loading /> }
       <div className="exam__card">
         <CardItem
-          title={directions?.filter(category => category.id == id)[0]?.nameKaz}
+          title={currentLanguage == 'kz' ? directions?.filter(category => category.id == id)[0]?.nameKaz : directions?.filter(category => category.id == id)[0]?.nameRus}
           icon={categories?.filter(item => item.id == directions?.filter(category => category.id == id)[0]?.id)[0]?.icon}
         />
       </div>
@@ -48,7 +52,7 @@ const Exam = ({ id : userId, selectedStudentId, role }) => {
         role == 'MENTOR' && (
           <div className="exam__button">
             <Button 
-              text="Тапсырма жүктеу"
+              text={t('uploadTask')}
               onClick={() => navigate(`/task-upload/${id}`)}
             />
           </div>
@@ -56,7 +60,7 @@ const Exam = ({ id : userId, selectedStudentId, role }) => {
       }   
       <div className="exam__tasks">
         <div className="exam__tasks-title">
-          Тапсырмалар
+          {t('tasks')}
         </div>
         <div className="exam__tasks-items">
           {
@@ -67,7 +71,7 @@ const Exam = ({ id : userId, selectedStudentId, role }) => {
                       { task?.status == 2 && <img src={SuccessIcon} alt="" /> }
                     </div>
                     <div className="exam__tasks-item-title">
-                      №{index+1} тапсырма
+                      №{index+1} {t('task1')}
                     </div>
                 </div>
                 <div className="exam__tasks-item-right">

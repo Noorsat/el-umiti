@@ -4,8 +4,11 @@ import MainPageIcon from '../../assets/images/panel-2.svg';
 import AccountIcon from '../../assets/images/panel-3.svg';
 import { Link, useLocation } from 'react-router-dom';
 import { Roles } from '../../enums/Roles';
+import { useTranslation } from 'react-i18next';
 
 const BottomPanel = ({ role }) => {
+    const { t } = useTranslation();
+
     return (
         <div className='bottomPanel'>
             <div className="bottomPanel__items">
@@ -14,7 +17,7 @@ const BottomPanel = ({ role }) => {
                         <img src={TasksIcon} alt="tasks" />
                     </div>
                     <div className="bottomPanel__item-title">
-                        { (role == Roles.admin || role == Roles.mentor ) ? 'Қатысушылар' : 'Тапсырмалар' }
+                        { (role == Roles.admin || role == Roles.mentor ) ? t('participant') : t('tasks') }
                     </div>
                 </Link>
                 <Link to={`/main`} className="bottomPanel__item">
@@ -22,7 +25,7 @@ const BottomPanel = ({ role }) => {
                         <img src={MainPageIcon} alt="main" />
                     </div>
                     <div className="bottomPanel__item-title">
-                        Басты бет
+                        {t('home')}
                     </div>
                 </Link>
                 <Link to={`/account`} className="bottomPanel__item">
@@ -30,7 +33,7 @@ const BottomPanel = ({ role }) => {
                         <img src={AccountIcon} alt="account" />
                     </div>
                     <div className="bottomPanel__item-title">
-                        Жеке кабинет
+                        {t('profile')}
                     </div>
                 </Link>
             </div>

@@ -5,15 +5,17 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { changeLanguage, getUserById, updateUserInfo } from '../../api/account.api';
 import Loading from '../../components/Loading/Loading';
+import { useTranslation } from 'react-i18next';
 
 const Language = ({ setChatId, setRole, setId, id, chatId, setUser }) => {
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState();
 
     const location = useLocation().search;
 
-    const userId = location && location.split("=")[1];
+    const userId = location && location.split("=")[1] || localStorage.getItem("userId");
 
     useEffect(() => {
         getUserById(userId).then((res) => {
@@ -21,11 +23,13 @@ const Language = ({ setChatId, setRole, setId, id, chatId, setUser }) => {
             setRole(res.data?.roles[0]?.name);
         })
 
+        localStorage.setItem("userId", userId);
         setId(userId);
     }, [])
 
     const selectLanguageHandler = (lang) => {
         setLoading(true);
+        i18n.changeLanguage(lang == "KAZ" ? 'kz' : 'ru')
 
         changeLanguage(id, lang).then((res) => {
             if (res.status == 200){
