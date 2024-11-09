@@ -1,8 +1,11 @@
 .techHelp{
     padding: 32px 16px 0 16px;
 
-    &__card{
+    &__cards{
         margin-bottom: 40px;
+    }
+    &__card{
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         background: #f4f4f4;

@@ -27,6 +27,7 @@ import AdminMentors from './pages/AdminMentors/AdminMentors';
 import NewUser from './pages/NewUser/NewUser';
 import ChangeMentor from './pages/ChangeMentor/ChangeMentor';
 import Mentors from './pages/Mentors/Mentors';
+import TechSupport from './pages/TechSupport/TechSupport';
 
 
 function App() {
@@ -74,9 +75,10 @@ function App() {
           <Route path='/exam/:id' element={<Exam id={id} selectedStudentId={selectedStudentId || id} role={role} />} />
           <Route path='/task-check/:studentId/:directionId/:taskId/:taskIndex' element={<Task chatId={chatId} role={role} />} />
           <Route path='/task-upload/:id' element={<TaskUpload chatId={chatId} id={id} selectedStudentId={selectedStudentId} />} />
-          <Route path='/tech-help' element={<TechHelp />} />
+          <Route path='/tech-help' element={<TechHelp id={id} role={role}/>} />
           <Route path='/chat' element={<Chat />} />
-          <Route path='/new-request' element={<NewRequest />} />
+          <Route path='/new-request' element={<NewRequest id={id} />} />
+          <Route path="/tech-support/:supportId" element={<TechSupport role={role} /> } />
           <Route path='/request-success' element={<RequestSuccess />} />
           <Route path='/news' element={<News />} />
           <Route path='/news/:id' element={<NewsItem />} />

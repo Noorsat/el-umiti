@@ -63,14 +63,18 @@ const Main = ({ role, setIsLogin, user }) => {
                         {t('news')}
                     </div>
                 </Link>
-                <Link className="main__item" to={`/tech-help`}>
-                    <div className="main__item-icon">
-                        <img src={CallCenterIcon} alt="call-center-icon" />
-                    </div>
-                    <div className="main__item-title">
-                        {t('techSupport')}
-                    </div>
-                </Link>
+                {
+                    (role == Roles.mentor || role == Roles.admin) && (
+                        <Link className="main__item" to={`/tech-help`}>
+                            <div className="main__item-icon">
+                                <img src={CallCenterIcon} alt="call-center-icon" />
+                            </div>
+                            <div className="main__item-title">
+                                {t('techSupport')}
+                            </div>
+                        </Link>
+                    )
+                }
             </div>
             {
                 role == Roles.admin && (

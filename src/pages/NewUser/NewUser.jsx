@@ -172,7 +172,7 @@ const NewUser = () => {
         }
        
         <div className="newUser__button">
-            <button onClick={createUserHandler} disabled={!Object.values(newUser).every((value) => value !== '')}>
+            <button onClick={createUserHandler} disabled={!Object.values(newUser).every((value) => value !== '')} >
                 {t('add')}
             </button>
         </div>

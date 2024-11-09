@@ -16,7 +16,7 @@ const Account = ({ id, chatId }) => {
         setLoading(true);
         getUserInfo(id, chatId).then((res) => {
             if (res.data){
-                setAccount({...res.data, role: res.data?.roles[0].name })
+                setAccount({...res.data, role: res.data?.roles[0]?.name })
             }
             setLoading(false);
         })
