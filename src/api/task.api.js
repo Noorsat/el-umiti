@@ -66,13 +66,9 @@ export const updateTask = async (chatId, id, body) => {
     }
 }
 
-export const deleteTask = async (chatId, id) => {
+export const deleteTask = async (id) => {
     try {
-        const response = await instance.delete(`/api/tasks/${id}`, body, {
-            headers: {
-                'chatId': chatId
-            }
-        })
+        const response = await instance.delete(`/api/task/${id}/delete`);
     
         return response;
     } catch (err){

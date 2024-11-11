@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { categories } from '../../utils/categories';
 import { useEffect, useState } from 'react';
-import { answerTask, apporoveAnswer, getDirections, getImage, getTask, updateTask, uploadFilesToAnswer } from '../../api/task.api';
+import { answerTask, apporoveAnswer, deleteTask, getDirections, getImage, getTask, updateTask, uploadFilesToAnswer } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 import { Roles } from '../../enums/Roles';
 import { useTranslation } from 'react-i18next';
@@ -73,44 +73,46 @@ const Task = ({ chatId, role }) => {
     }, [])
 
     const sendStudentAnswerHandler = () => {
-        setLoading(true);
 
-        answerTask({taskId: Number(taskId), text: studentAnswer}).then((res) => {
-            if (res.status == 200){
-                if (firstFile || secondFile){
-                    const formData1 = new FormData();
-                    const formData2 = new FormData();
+        if (studentAnswer && studentAnswer.trim().length > 0){
+            answerTask({taskId: Number(taskId), text: studentAnswer}).then((res) => {
+                if (res.status == 200){
+                    if (firstFile || secondFile){
+                        const formData1 = new FormData();
+                        const formData2 = new FormData();
 
-                    if (firstFile) {
-                        formData1.append('files', firstFile);
+                        if (firstFile) {
+                            formData1.append('files', firstFile);
+                        }
+                        if (secondFile) {
+                            formData2.append('files', secondFile);
+                        }
+
+                        setLoading(true); 
+
+                        Promise.all([
+                            firstFile ? uploadFilesToAnswer(res.data.id, formData1, firstType.toUpperCase()) : Promise.resolve(),
+                            secondFile ? uploadFilesToAnswer(res.data.id, formData2, secondType.toUpperCase()) : Promise.resolve() 
+                        ])
+                            .then(() => {
+                                navigate(`/exam/${directionId}`);
+                            })
+                            .finally(() => {
+                                setLoading(false);
+                            })
+                            .catch(error => {
+                                console.error("File upload failed:", error);
+                                setLoading(false);
+                            });
+                    }else{
+                        navigate(`/exam/${directionId}`);
                     }
-                    if (secondFile) {
-                        formData2.append('files', secondFile);
-                    }
-
-                    setLoading(true); 
-
-                    Promise.all([
-                        firstFile ? uploadFilesToAnswer(res.data.id, formData1, firstType.toUpperCase()) : Promise.resolve(),
-                        secondFile ? uploadFilesToAnswer(res.data.id, formData2, secondType.toUpperCase()) : Promise.resolve() 
-                    ])
-                        .then(() => {
-                            navigate(`/exam/${directionId}`);
-                        })
-                        .finally(() => {
-                            setLoading(false);
-                        })
-                        .catch(error => {
-                            console.error("File upload failed:", error);
-                            setLoading(false);
-                        });
-                }else{
-                    navigate(`/exam/${directionId}`);
                 }
-            }
-        })
-
-
+            })
+        }else{
+            alert("Заполните поля");
+            setLoading(false);
+        }
     }
 
     const approveAnswerHandler = () => {
@@ -155,6 +157,20 @@ const Task = ({ chatId, role }) => {
           setSecondType(file?.type?.split("/")[0]);
           setSecondImage(previewUrl);
         }
+    }
+
+    const deleteTaskHandler = () => {
+        setLoading(true);
+
+        deleteTask(task.id).then((res) => {
+            if (res.status == 200){
+                navigate(`/exam/${directionId}`)
+            }
+        }).catch((err) => {
+            alert(err);
+        }).finally(() => {
+            setLoading(false);
+        })
     }
     
     return (
@@ -307,6 +323,16 @@ const Task = ({ chatId, role }) => {
                         {t('declined')}
                     </div>
                 )
+            }
+            {
+                role == Roles.mentor &&
+                    <div style={{marginTop:24}}>
+                         <Button 
+                            text={t('delete')}
+                            backgroundColor={'#D70040'}
+                            onClick={deleteTaskHandler}
+                        />
+                    </div>
             }
             
         </div>
