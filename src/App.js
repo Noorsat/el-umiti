@@ -80,7 +80,7 @@ function App() {
           <Route path='/new-request' element={<NewRequest id={id} />} />
           <Route path="/tech-support/:supportId" element={<TechSupport role={role} /> } />
           <Route path='/request-success' element={<RequestSuccess />} />
-          <Route path='/news' element={<News />} />
+          <Route path='/news' element={<News role={role} />} />
           <Route path='/news/:id' element={<NewsItem />} />
           <Route path='/admin/lang' element={<AdminLang id={id} chatId={chatId} setId={setId} setUser={setUser} setRole={setRole} />}  />
           <Route path='/admin-mentors' element={<AdminMentors />} />

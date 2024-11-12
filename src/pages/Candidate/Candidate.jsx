@@ -79,14 +79,14 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                         title={t('contactUs')}
                     />
                 </a>
-                {
+                {/* {
                     !(role == Roles.admin && user?.roles[0]?.name == Roles.mentor) && (
                         <BoxItem 
                             icon={PdfIcon}
                             title={`${t('permission')} PDF`}
                         />
                     )
-                }
+                } */}
                   {
                     !(role == Roles.admin && user?.roles[0]?.name == Roles.mentor) && (
                         <BoxItem 

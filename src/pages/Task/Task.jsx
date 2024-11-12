@@ -22,6 +22,8 @@ const Task = ({ chatId, role }) => {
     const [task, setTask] = useState();
     const [directions, setDirections] = useState([]);
     const [loading, setLoading] = useState();
+    const [firstItemLoading, setFirstItemLoading] = useState(false);
+    const [secondItemLoading, setSecondItemLoading] = useState(false);
     const [studentAnswer, setStudentAnswer] = useState(); 
     const [firstFile, setFirstFile] = useState(null);
     const [firstType, setFirstType] = useState(null);
@@ -58,7 +60,13 @@ const Task = ({ chatId, role }) => {
                 setTask({...res.data, answers: res.data?.answers?.map(answer => {
                     return {
                         ...answer,
-                        answerFiles: answer?.answerFiles?.map(file => {
+                        answerFiles: answer?.answerFiles?.map((file, index) => {
+                            if (index == 0){
+                                setFirstItemLoading(true);
+                            }
+                            if (index == 1){
+                                setSecondItemLoading(true);
+                            }
                             return {
                                 ...file, 
                                 fileLink: fetchImageUrl(file.id)
@@ -175,7 +183,7 @@ const Task = ({ chatId, role }) => {
     
     return (
         <div className='task'>
-            { loading && (<Loading /> )}
+            { (loading || firstItemLoading || secondItemLoading) && (<Loading /> )}
             <div className="task__card">
                <CardItem
                     title={currentLanguage == 'kz' ? directions?.filter(category => category.id == directionId)[0]?.nameKaz : directions?.filter(category => category.id == directionId)[0]?.nameRus}
@@ -223,14 +231,14 @@ const Task = ({ chatId, role }) => {
                             </div>
                             <div className="task__images">
                                 {
-                                    answer?.answerFiles?.map(file => {
+                                    answer?.answerFiles?.map((file, index) => {
                                         return (
                                             <>
                                                 {
-                                                    file.fileType == 'VIDEO' && <video src={ images.filter(image => image.id == file.id)[0]?.link } width={'50%'} controls autoPlay />
+                                                    file.fileType == 'VIDEO' && <video src={ images.filter(image => image.id == file.id)[0]?.link } width={'50%'} controls autoPlay onLoadedData={() => { index == 0 ? setFirstItemLoading(false) : setSecondItemLoading(false)}} onError={() => { index == 0 ? setFirstItemLoading(false) : setSecondItemLoading(false)}} />
                                                 }
                                                 {
-                                                    file.fileType == "IMAGE" && <img src={ images.filter(image => image.id == file.id)[0]?.link } width={'50%'} /> 
+                                                    file.fileType == "IMAGE" && <img src={ images.filter(image => image.id == file.id)[0]?.link } width={'50%'}  onLoad={() => { index == 0 ? setFirstItemLoading(false) : setSecondItemLoading(false)}} onError={() => { index == 0 ? setFirstItemLoading(false) : setSecondItemLoading(false)}} /> 
                                                 }
                                             </>
                                         )
