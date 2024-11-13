@@ -42,6 +42,8 @@
     "title": "Тема",
     "type": "Тип",
     "toEveryone": "Всем",
+    "toMentors": "Наставникам",
+    "toParticipants": "Участникам",
     "writeHere": "Ваш текст",
     "save": "Сохранить",
     "newPost": "Новый пост",

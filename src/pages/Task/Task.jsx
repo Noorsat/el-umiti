@@ -2,18 +2,17 @@ import './Task.scss';
 import CardItem from '../../components/CardItem/CardItem';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import CameraIcon from '../../assets/images/camera.svg';
-import Task1 from '../../assets/images/task-1.png';
-import Task2 from '../../assets/images/task-2.png';
 import Button from '../../components/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { categories } from '../../utils/categories';
 import { useEffect, useState } from 'react';
-import { answerTask, apporoveAnswer, deleteTask, getDirections, getImage, getTask, updateTask, uploadFilesToAnswer } from '../../api/task.api';
+import { answerTask, apporoveAnswer, deleteTask, getDirections, getImage, getTask, uploadFilesToAnswer } from '../../api/task.api';
 import Loading from '../../components/Loading/Loading';
 import { Roles } from '../../enums/Roles';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment';
 
-const Task = ({ chatId, role }) => {
+const Task = ({ role }) => {
     const { t, i18n } = useTranslation();
     const { studentId, directionId, taskId, taskIndex } = useParams();
 
@@ -81,7 +80,6 @@ const Task = ({ chatId, role }) => {
     }, [])
 
     const sendStudentAnswerHandler = () => {
-
         if (studentAnswer && studentAnswer.trim().length > 0){
             answerTask({taskId: Number(taskId), text: studentAnswer}).then((res) => {
                 if (res.status == 200){
@@ -109,7 +107,6 @@ const Task = ({ chatId, role }) => {
                                 setLoading(false);
                             })
                             .catch(error => {
-                                console.error("File upload failed:", error);
                                 setLoading(false);
                             });
                     }else{
@@ -202,6 +199,14 @@ const Task = ({ chatId, role }) => {
                 </div>
                 <div className="task__text">
                     {task?.descriptionKaz}
+                </div>
+            </div>
+            <div className="task__item">
+                <div className="task__title">
+                    {t('deadline')}
+                </div>
+                <div className="task__text">
+                    { moment(task?.deadline).format("DD-MM-YYYY") }
                 </div>
             </div>
             <div className="task__title">

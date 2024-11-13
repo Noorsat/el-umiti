@@ -28,6 +28,7 @@ import NewUser from './pages/NewUser/NewUser';
 import ChangeMentor from './pages/ChangeMentor/ChangeMentor';
 import Mentors from './pages/Mentors/Mentors';
 import TechSupport from './pages/TechSupport/TechSupport';
+import CreateNews from './pages/CreateNews/CreateNews';
 
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
           <Route path="/tech-support/:supportId" element={<TechSupport role={role} /> } />
           <Route path='/request-success' element={<RequestSuccess />} />
           <Route path='/news' element={<News role={role} />} />
+          <Route path='/news/create' element={<CreateNews id={id} />} />
           <Route path='/news/:id' element={<NewsItem />} />
           <Route path='/admin/lang' element={<AdminLang id={id} chatId={chatId} setId={setId} setUser={setUser} setRole={setRole} />}  />
           <Route path='/admin-mentors' element={<AdminMentors />} />

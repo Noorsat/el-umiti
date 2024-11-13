@@ -82,9 +82,9 @@ const Account = ({ id, chatId }) => {
                                 <a href={`/files/kz.pdf`} className="account__item-title" download>
                                     {t('downloadTaskTemplate')}
                                 </a>
-                                <div className="account__item-title">
+                                {/* <div className="account__item-title">
                                     {t('submitTasks')}
-                                </div>
+                                </div> */}
                             </>
                         )
                     }
@@ -92,9 +92,9 @@ const Account = ({ id, chatId }) => {
                         <div className="account__item-text">
                             { t('settings') }
                         </div>
-                        <div className="account__item-title">
+                        <Link className="account__item-title" to={'/'}>
                             { t('changeLanguage') } 
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>}
