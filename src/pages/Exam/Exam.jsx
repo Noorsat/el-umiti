@@ -42,12 +42,12 @@ const Exam = ({ id : userId, selectedStudentId, role }) => {
           icon={categories?.filter(item => item.id == directions?.filter(category => category.id == id)[0]?.id)[0]?.icon}
         />
       </div>
-      <div className="exam__progress">
+      {/* <div className="exam__progress">
         <ProgressBar
           current={3}
           total={13}
         />
-      </div>
+      </div> */}
       {
         role == 'MENTOR' && (
           <div className="exam__button">

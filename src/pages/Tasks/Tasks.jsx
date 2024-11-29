@@ -34,10 +34,10 @@ const Tasks = ({ id }) => {
         loading && <Loading />
       }
       <div className="tasks__progress">
-        <ProgressBar 
+        {/* <ProgressBar 
           current={12}
           total={50}
-        />
+        /> */}
       </div>
       <div className="tasks__categories">
         {

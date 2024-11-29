@@ -188,10 +188,10 @@ const Task = ({ role }) => {
                 />
             </div>
             <div className="task__progress">
-                <ProgressBar 
+                {/* <ProgressBar 
                     current={3}
                     total={13}
-                />
+                /> */}
             </div>
             <div className="task__item">
                 <div className="task__title">
@@ -225,7 +225,7 @@ const Task = ({ role }) => {
                 )
             } */}
             {
-                (task?.answers.length > 0 && role === Roles.mentor ) && (
+                (task?.answers.length > 0 && (role === Roles.mentor || role == Roles.participant)  ) && (
                     task.answers.map(answer => (
                         <div style={{ marginBottom: 12}}>
                             <div className="task__title">

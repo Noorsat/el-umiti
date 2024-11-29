@@ -44,7 +44,7 @@ const Main = ({ role, setIsLogin, user }) => {
                     />
                 )
             }
-            {
+            {/* {
                 role == Roles.participant && (
                     <div style={{marginBottom: 42}}>
                         <ProgressBar
@@ -53,7 +53,7 @@ const Main = ({ role, setIsLogin, user }) => {
                         />
                     </div>
                 )
-            }
+            } */}
             <div className="main__items">
                 <Link className="main__item" to={`/news`}>
                     <div className="main__item-icon">

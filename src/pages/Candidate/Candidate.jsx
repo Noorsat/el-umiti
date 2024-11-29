@@ -122,7 +122,7 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                     )
                 }
             </div>
-            {
+            {/* {
                 role != Roles.admin && (
                     <div className='candidate__progress'>
                         <ProgressBar 
@@ -131,7 +131,7 @@ const Candidate = ({ role, setSelectedStudentId }) => {
                         />
                     </div>
                 )
-            }
+            } */}
             {
                 role != Roles.admin && (
                     <div className="candidate__cards">
